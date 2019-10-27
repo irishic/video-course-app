@@ -1,0 +1,17 @@
+.header__logo{
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: #fff;
+	text-transform: uppercase;
+
+	img{
+		width: 60px;
+		margin-right: 5px;
+	}
+
+	fa-icon{
+		font-size: 35px;
+		margin-right: 10px;
+	}
+}

@@ -1,0 +1,14 @@
+header {
+  align-items: center;
+  background: #ddadaf;
+  padding: 10px 0;
+
+  .wide-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+app-header-controls {
+  display: flex;
+}

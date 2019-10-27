@@ -1,0 +1,42 @@
+<div class="wide-container courses-list">
+  <div class="clearfix courses-list__add-btn-container">
+    <button>
+      + Add course
+    </button>
+  </div>
+
+  <ul>
+    <li *ngFor="let course of courses" class="horisontal-alignment-block">
+      <div class="course-info">
+        <div class="course-info__header horisontal-alignment-block">
+          <h3>{{ course.title }}</h3>
+          <div class="course-info__header__main-chars">
+            <span class="course-info__header__main-chars--duration">
+              <fa-icon [icon]="faClock"></fa-icon>
+              {{ course.duration | minutesConverter}}
+            </span>
+            <span class="course-info__header__main-chars--date">
+              <fa-icon [icon]="faCalendar"></fa-icon>
+              {{ course.creationDate | date }}
+            </span>
+          </div>
+        </div>
+        <div class="course-info__description">
+          {{ course.description }}
+        </div>
+      </div>
+      <div class="course-controls horisontal-alignment-block">
+        <button disabled class="course-controls__edit horisontal-alignment-block">
+          <fa-icon [icon]="faPen"></fa-icon>
+          Edit
+        </button>
+        <button (click)="onCourseDelete.emit(course.id)" class="course-controls__delete horisontal-alignment-block">
+          <fa-icon [icon]="faTrash"></fa-icon>
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <button (click)="loadMore()" class="courses-list__load-more">Load more</button>
+</div>

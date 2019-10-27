@@ -1,0 +1,17 @@
+.course-search {
+  display: flex;
+  input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    width: 200px;
+  }
+  button {
+    padding: 5px 15px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+	background: #ddacaf;
+	margin-left: 4px;
+	border-radius: 0;
+  }
+}
