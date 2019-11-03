@@ -1,8 +1,8 @@
 import { MinutesConverterPipe } from './minutes-converter.pipe';
 
 describe('MinutesConverterPipe', () => {
-  it('create an instance', () => {
+  it('it receives amount of minutes and creates Xh Ymin string', () => {
     const pipe = new MinutesConverterPipe();
-    expect(pipe).toBeTruthy();
+    expect(pipe.transform(96)).toBe("1h 36min");
   });
 });
