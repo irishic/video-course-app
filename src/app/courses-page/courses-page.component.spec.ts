@@ -1,16 +1,31 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { Component } from "@angular/core";
+import { CoursesPageComponent } from "./courses-page.component";
 
-import { CoursesPageComponent } from './courses-page.component';
+@Component({
+  selector: "app-course-search",
+  template: ""
+})
+class StubAppCourseSearchComonent {}
 
-describe('CoursesPageComponent', () => {
+@Component({
+  selector: "app-courses-list",
+  template: ""
+})
+class StubAppCoursesListComonent {}
+
+describe("CoursesPageComponent", () => {
   let component: CoursesPageComponent;
   let fixture: ComponentFixture<CoursesPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoursesPageComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        CoursesPageComponent,
+        StubAppCourseSearchComonent,
+        StubAppCoursesListComonent
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +34,7 @@ describe('CoursesPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

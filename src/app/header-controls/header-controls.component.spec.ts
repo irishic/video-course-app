@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FaIconStub } from '../testing/fa-icon-stub';
 import { HeaderControlsComponent } from './header-controls.component';
 
 describe('HeaderControlsComponent', () => {
@@ -8,7 +8,7 @@ describe('HeaderControlsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderControlsComponent ]
+      declarations: [ HeaderControlsComponent, FaIconStub ]
     })
     .compileComponents();
   }));

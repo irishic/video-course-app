@@ -6,37 +6,12 @@
   </div>
 
   <ul>
-    <li *ngFor="let course of courses" class="horisontal-alignment-block">
-      <div class="course-info">
-        <div class="course-info__header horisontal-alignment-block">
-          <h3>{{ course.title }}</h3>
-          <div class="course-info__header__main-chars">
-            <span class="course-info__header__main-chars--duration">
-              <fa-icon [icon]="faClock"></fa-icon>
-              {{ course.duration | minutesConverter}}
-            </span>
-            <span class="course-info__header__main-chars--date">
-              <fa-icon [icon]="faCalendar"></fa-icon>
-              {{ course.creationDate | date }}
-            </span>
-          </div>
-        </div>
-        <div class="course-info__description">
-          {{ course.description }}
-        </div>
-      </div>
-      <div class="course-controls horisontal-alignment-block">
-        <button disabled class="course-controls__edit horisontal-alignment-block">
-          <fa-icon [icon]="faPen"></fa-icon>
-          Edit
-        </button>
-        <button (click)="onCourseDelete.emit(course.id)" class="course-controls__delete horisontal-alignment-block">
-          <fa-icon [icon]="faTrash"></fa-icon>
-          Delete
-        </button>
-      </div>
-    </li>
+    <li *ngFor="let course of courses">
+      <app-courses-list-item (onItemDelete)="onCourseDelete.emit($event)" [course]="course"></app-courses-list-item>
+	</li>
   </ul>
 
-  <button (click)="loadMore()" class="courses-list__load-more">Load more</button>
+  <button (click)="loadMore()" class="courses-list__load-more">
+    Load more
+  </button>
 </div>

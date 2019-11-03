@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LogoComponent } from './logo.component';
+import { FaIconStub } from '../testing/fa-icon-stub';
 
 describe('LogoComponent', () => {
   let component: LogoComponent;
@@ -8,7 +8,7 @@ describe('LogoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoComponent ]
+      declarations: [ LogoComponent, FaIconStub ]
     })
     .compileComponents();
   }));

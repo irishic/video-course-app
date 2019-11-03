@@ -13,7 +13,8 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { CourseSearchComponent } from "./course-search/course-search.component";
 import { CoursesListComponent } from "./courses-list/courses-list.component";
-import { MinutesConverterPipe } from './pipes/minutes-converter.pipe';
+import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
+import { CoursesListItemComponent } from "./courses-list-item/courses-list-item.component";
 
 @NgModule({
   declarations: [
@@ -26,9 +27,10 @@ import { MinutesConverterPipe } from './pipes/minutes-converter.pipe';
     BreadcrumbsComponent,
     CourseSearchComponent,
     CoursesListComponent,
-    MinutesConverterPipe
+    MinutesConverterPipe,
+    CoursesListItemComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent]
 })
