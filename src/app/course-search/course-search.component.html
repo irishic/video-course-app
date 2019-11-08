@@ -1,4 +1,4 @@
 <div class="course-search wide-container">
   <input type="text" value={searchValue} [(ngModel)]="searchValue" />
-  <button (click)="searchFor(searchValue)">Search</button>
+  <button (click)="searchFor.emit(searchValue)">Search</button>
 </div>

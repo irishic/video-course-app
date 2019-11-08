@@ -34,9 +34,9 @@ describe("CourseSearchComponent", () => {
     input.value = "test value";
     input.dispatchEvent(new Event("input"));
 
-    spyOn(component, "searchFor");
+    spyOn(component.searchFor, "emit");
     btn.click();
 
-    expect(component.searchFor).toHaveBeenCalledWith("test value");
+    expect(component.searchFor.emit).toHaveBeenCalledWith("test value");
   });
 });

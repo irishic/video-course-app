@@ -5,6 +5,7 @@ import { MinutesConverterPipe } from "../pipes/minutes-converter.pipe";
 import { Course } from "../domain/models/course";
 import { PipeTransform, EventEmitter } from "@angular/core";
 import { formatDate } from "@angular/common";
+import { HighlightElementDirective } from "../directives/highlight-element.directive";
 
 describe("CoursesListItemComponent", () => {
   let component: CoursesListItemComponent;
@@ -12,7 +13,12 @@ describe("CoursesListItemComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CoursesListItemComponent, FaIconStub, MinutesConverterPipe]
+      declarations: [
+        CoursesListItemComponent,
+        FaIconStub,
+        MinutesConverterPipe,
+        HighlightElementDirective
+      ]
     }).compileComponents();
   }));
 
@@ -36,7 +42,9 @@ describe("CoursesListItemComponent", () => {
     );
     const descr = element.querySelector(".course-info__description");
 
-    expect(title.textContent.trim()).toBe(component.course.title);
+    expect(
+      RegExp(component.course.title, "i").test(title.textContent.trim())
+    ).toBeTruthy();
     expect(duration.textContent.trim()).toBe(
       minutesConverterPipe.transform(component.course.duration)
     );
@@ -56,6 +64,8 @@ describe("CoursesListItemComponent", () => {
     deleteBtn.click();
     fixture.detectChanges();
 
-    expect(component.onItemDelete.emit).toHaveBeenCalledWith(component.course.id);
+    expect(component.onItemDelete.emit).toHaveBeenCalledWith(
+      component.course.id
+    );
   });
 });

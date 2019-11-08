@@ -7,7 +7,7 @@
 
   <ul>
     <li *ngFor="let course of courses">
-      <app-courses-list-item (onItemDelete)="onCourseDelete.emit($event)" [course]="course"></app-courses-list-item>
+      <app-courses-list-item (onItemDelete)="deleteCourse.emit($event)" [course]="course"></app-courses-list-item>
 	</li>
   </ul>
 
@@ -15,7 +15,7 @@
 	  No data found. Feel free to create new course!
   </div>
 
-  <button (click)="loadMore()" class="courses-list__load-more">
+  <button (click)="loadMore.emit()" class="courses-list__load-more">
     Load more
   </button>
 </div>

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CoursesPageComponent } from "./courses-page.component";
 
 @Component({
@@ -12,7 +12,9 @@ class StubAppCourseSearchComonent {}
   selector: "app-courses-list",
   template: ""
 })
-class StubAppCoursesListComonent {}
+class StubAppCoursesListComonent {
+  @Input() courses;
+}
 
 describe("CoursesPageComponent", () => {
   let component: CoursesPageComponent;

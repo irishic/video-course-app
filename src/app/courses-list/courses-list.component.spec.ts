@@ -9,22 +9,26 @@ import { CoursesListComponent } from "./courses-list.component";
   template: ""
 })
 class StubAppCoursesListItemComponent {
-  @Input() course;
+  @Input() course: CourseInterface;
   loadMore() {}
 }
 
 @Component({
   template: `
-    <app-courses-list (onCourseDelete)="handleCourseDelete($event)">
+    <app-courses-list
+      [courses]="courses"
+      (loadMore)="handleLoadMore()"
+      (deleteCourse)="handleCourseDelete($event)"
+    >
     </app-courses-list>
   `
 })
 class TestHostComponent {
-  handleCourseDelete(id: string) {}
   courses: CourseInterface[] = fakeCourses;
-
-  @ViewChild(CoursesListComponent, { static: true })
-  public child: CoursesListComponent;
+  @ViewChild(CoursesListComponent, { static: false })
+  child: CoursesListComponent;
+  handleCourseDelete(id: string) {}
+  handleLoadMore() {}
 }
 
 describe("CoursesListComponent", () => {
@@ -56,16 +60,16 @@ describe("CoursesListComponent", () => {
   it("calls loadMore method on button click", () => {
     const element = fixture.nativeElement;
     const loadMoreBtn = element.querySelector(".courses-list__load-more");
-    spyOn(component.child, "loadMore");
+    spyOn(component, "handleLoadMore");
 
     loadMoreBtn.click();
 
-    expect(component.child.loadMore).toHaveBeenCalled();
+    expect(component.handleLoadMore).toHaveBeenCalled();
   });
 
   it("passes delete action to the parent component with a given argument", () => {
     spyOn(component, "handleCourseDelete");
-    component.child.onCourseDelete.emit(1);
+    component.child.deleteCourse.emit(1);
     expect(component.handleCourseDelete).toHaveBeenCalledWith(1);
   });
 });
