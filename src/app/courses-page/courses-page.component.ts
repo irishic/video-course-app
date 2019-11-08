@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { CoursesDataService } from "../services/courses-data.service";
+import { CourseInterface } from "../domain/interfases/course";
 
 @Component({
   selector: "app-courses-page",
@@ -6,37 +8,21 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./courses-page.component.scss"]
 })
 export class CoursesPageComponent implements OnInit {
-  constructor() {}
+  coursesList: CourseInterface[];
+  constructor(private dataService: CoursesDataService) {}
 
   handleCourseDelete(id) {
     console.log(id);
   }
+  searchByTitle(value: string) {
+    this.coursesList = this.dataService.searchByName(value);
+  }
 
-//   HOOKS ORDERING CHECK
+  loadMoreCourses() {
+    this.coursesList = this.dataService.loadMoreCourses();
+  }
 
   ngOnInit() {
-	  console.log("ngOnInit hook")
-  }
-
-  ngOnChanges() {
-    console.log("ngOnChanges hook");
-  }
-  ngDoCheck() {
-    console.log("ngDoCheck hook");
-  }
-  ngAfterContentInit() {
-    console.log("ngAfterContentInit hook");
-  }
-  ngAfterContentChecked() {
-    console.log("ngAfterContentChecked hook");
-  }
-  ngAfterViewInit() {
-    console.log("ngAfterViewInit hook");
-  }
-  ngAfterViewChecked() {
-    console.log("ngAfterViewChecked hook");
-  }
-  ngOnDestroy() {
-    console.log("ngOnDestroy hook");
+    this.coursesList = this.dataService.getCourses();
   }
 }

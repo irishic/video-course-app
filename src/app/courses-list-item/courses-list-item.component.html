@@ -1,7 +1,14 @@
-<li class="horisontal-alignment-block">
+<div 
+	class="course-item-wrapper horisontal-alignment-block"
+	[ngClass]="{'top-rated': course.topRated}"
+	[appHighlightElement]="statusColor"
+>
   <div class="course-info">
     <div class="course-info__header horisontal-alignment-block">
-      <h3>{{ course.title }}</h3>
+	  <div class="course-info__header__title">
+		<h3>{{ course.title | uppercase }}</h3>
+		<fa-icon *ngIf="course.topRated" [icon]="faStar"></fa-icon>
+	  </div>
       <div class="course-info__header__main-chars">
         <span class="course-info__header__main-chars--duration">
           <fa-icon [icon]="faClock"></fa-icon>
@@ -30,4 +37,4 @@
       Delete
     </button>
   </div>
-</li>
+</div>

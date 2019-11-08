@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Course } from "../domain/models/course";
-import fakeCourses from "./fake-courses-list.js";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { CourseInterface } from "../domain/interfases/course";
 
 @Component({
   selector: "app-courses-list",
@@ -9,16 +8,14 @@ import fakeCourses from "./fake-courses-list.js";
 })
 export class CoursesListComponent implements OnInit {
   @Output() onCourseDelete = new EventEmitter();
-
-  courses: Course[] = [];
-
-  loadMore() {
-    this.courses = this.courses.concat(this.courses.slice(0, 4));
-  }
+  @Output() onLoadMore = new EventEmitter();
+  @Input() courses: CourseInterface[];
 
   constructor() {}
 
-  ngOnInit() {
-    this.courses = fakeCourses;
+  loadMore() {
+    this.onLoadMore.emit();
   }
+
+  ngOnInit() {}
 }

@@ -4,7 +4,8 @@ import {
   faPen,
   faTrash,
   faClock,
-  faCalendarAlt
+  faCalendarAlt,
+  faStar
 } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -17,10 +18,23 @@ export class CoursesListItemComponent implements OnInit {
   faTrash = faTrash;
   faClock = faClock;
   faCalendar = faCalendarAlt;
-  
+  faStar = faStar;
+  statusColor: string = null;
+  currentDateStamp: number = new Date().getTime();
+
   @Output() onItemDelete = new EventEmitter();
   @Input() course: CourseInterface;
-  constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const daysDifference = Math.round(
+      (this.currentDateStamp - this.course.creationDate.getTime()) /
+        (1000 * 60 * 60 * 24)
+    );
+    if (daysDifference > 0 && daysDifference < 14) {
+      this.statusColor = "green";
+    }
+    if (daysDifference < 0) {
+      this.statusColor = "blue";
+    }
+  }
 }

@@ -13,6 +13,7 @@ body {
 .wide-container {
   width: calc(100% - 80px);
   margin: 0 auto;
+  max-width: 1400px;
 }
 
 app-root,

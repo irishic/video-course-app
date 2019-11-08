@@ -11,6 +11,10 @@
 	</li>
   </ul>
 
+  <div *ngIf="!courses.length" class="courses-list__empty-message">
+	  No data found. Feel free to create new course!
+  </div>
+
   <button (click)="loadMore()" class="courses-list__load-more">
     Load more
   </button>

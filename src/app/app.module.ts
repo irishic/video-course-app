@@ -15,6 +15,8 @@ import { CourseSearchComponent } from "./course-search/course-search.component";
 import { CoursesListComponent } from "./courses-list/courses-list.component";
 import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
 import { CoursesListItemComponent } from "./courses-list-item/courses-list-item.component";
+import { HighlightElementDirective } from "./directives/highlight-element.directive";
+import { CoursesDataService } from "./services/courses-data.service";
 
 @NgModule({
   declarations: [
@@ -28,10 +30,16 @@ import { CoursesListItemComponent } from "./courses-list-item/courses-list-item.
     CourseSearchComponent,
     CoursesListComponent,
     MinutesConverterPipe,
-    CoursesListItemComponent
+    CoursesListItemComponent,
+    HighlightElementDirective
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
-  providers: [],
+  providers: [
+    {
+      provide: 'CoursesDataService',
+      useClass: CoursesDataService
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,2 +1,10 @@
-<app-course-search class="app-row"></app-course-search>
-<app-courses-list class="app-row" (onCourseDelete)="handleCourseDelete($event)"></app-courses-list>
+<app-course-search
+  (onSearch)="searchByTitle($event)"
+  class="app-row"
+></app-course-search>
+<app-courses-list
+  class="app-row"
+  [courses]="coursesList"
+  (onLoadMore)="loadMoreCourses()"
+  (onCourseDelete)="handleCourseDelete($event)"
+></app-courses-list>
