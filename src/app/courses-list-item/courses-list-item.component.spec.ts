@@ -3,7 +3,7 @@ import { FaIconStub } from "../testing/fa-icon-stub";
 import { CoursesListItemComponent } from "./courses-list-item.component";
 import { MinutesConverterPipe } from "../pipes/minutes-converter.pipe";
 import { Course } from "../domain/models/course";
-import { PipeTransform, EventEmitter } from "@angular/core";
+import { PipeTransform } from "@angular/core";
 import { formatDate } from "@angular/common";
 import { HighlightElementDirective } from "../directives/highlight-element.directive";
 

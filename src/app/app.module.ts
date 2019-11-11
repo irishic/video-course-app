@@ -17,6 +17,7 @@ import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
 import { CoursesListItemComponent } from "./courses-list-item/courses-list-item.component";
 import { HighlightElementDirective } from "./directives/highlight-element.directive";
 import { CoursesDataService } from "./services/courses-data.service";
+import { OrderByPipe } from './pipes/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CoursesDataService } from "./services/courses-data.service";
     CoursesListComponent,
     MinutesConverterPipe,
     CoursesListItemComponent,
-    HighlightElementDirective
+    HighlightElementDirective,
+    OrderByPipe
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
   providers: [

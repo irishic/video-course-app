@@ -3,6 +3,7 @@ import { Component, Input, ViewChild } from "@angular/core";
 import { CourseInterface } from "../domain/interfases/course";
 import fakeCourses from "./fake-courses-list";
 import { CoursesListComponent } from "./courses-list.component";
+import { OrderByPipe } from '../pipes/order-by.pipe';
 
 @Component({
   selector: "app-courses-list-item",
@@ -40,7 +41,8 @@ describe("CoursesListComponent", () => {
       declarations: [
         TestHostComponent,
         CoursesListComponent,
-        StubAppCoursesListItemComponent
+        StubAppCoursesListItemComponent,
+        OrderByPipe
       ]
     }).compileComponents();
   }));
