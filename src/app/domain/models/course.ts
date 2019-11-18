@@ -1,4 +1,4 @@
-import { CourseInterface } from "../interfases/course";
+import { CourseInterface } from "../interfaces/course";
 
 export class Course implements CourseInterface {
   constructor(

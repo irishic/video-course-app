@@ -1,6 +1,6 @@
 <header>
   <div class="wide-container">
     <app-logo></app-logo>
-    <app-header-controls></app-header-controls>
+    <app-header-controls *ngIf="authService.isAuthenticated()"></app-header-controls>
   </div>
 </header>

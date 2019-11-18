@@ -17,7 +17,13 @@ import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
 import { CoursesListItemComponent } from "./courses-list-item/courses-list-item.component";
 import { HighlightElementDirective } from "./directives/highlight-element.directive";
 import { CoursesDataService } from "./services/courses-data.service";
-import { OrderByPipe } from './pipes/order-by.pipe';
+import { OrderByPipe } from "./pipes/order-by.pipe";
+import { ModalDialogComponent } from "./modal-dialog/modal-dialog.component";
+import { MatDialogModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material'
+import { OverlayModule } from "@angular/cdk/overlay";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ConfirmComponent } from './modal-dialog/confirm/confirm.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -33,15 +39,31 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     MinutesConverterPipe,
     CoursesListItemComponent,
     HighlightElementDirective,
-    OrderByPipe
+    OrderByPipe,
+    ModalDialogComponent,
+    ConfirmComponent,
+    LoginPageComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    FontAwesomeModule,
+    OverlayModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
   providers: [
     {
-      provide: 'CoursesDataService',
+      provide: "CoursesDataService",
       useClass: CoursesDataService
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalDialogComponent, ConfirmComponent]
 })
 export class AppModule {}

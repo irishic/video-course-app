@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { CourseInterface } from "../domain/interfases/course";
+import { CourseInterface } from "../domain/interfaces/course";
 import {
   faPen,
   faTrash,

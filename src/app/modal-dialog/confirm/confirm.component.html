@@ -1,0 +1,13 @@
+<p>{{ text }}</p>
+
+<div class="modal-controls">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    mat-dialog-close
+    (click)="okAction.emit()"
+    color="primary"
+  >
+    Ok
+  </button>
+</div>

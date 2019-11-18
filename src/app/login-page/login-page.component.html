@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title>
+    Login
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+    <mat-label>E-mail:</mat-label>
+      <input [(ngModel)]="userEmail" matInput placeholder="Enter e-mail" />
+    </mat-form-field>
+
+    <mat-form-field>
+    <mat-label>Password:</mat-label>
+      <input [(ngModel)]="userPassword" matInput placeholder="Enter password" />
+    </mat-form-field>
+  </mat-card-content>
+
+  <button
+    (click)="loginUser(userEmail, userPassword)"
+    mat-raised-button
+    color="primary"
+    disabled="{{!userEmail || !userPassword}}"
+  >
+    Login
+  </button>
+</mat-card>

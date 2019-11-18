@@ -1,5 +1,5 @@
 import { Course } from "./course";
-import { CourseInterface } from "../interfases/course";
+import { CourseInterface } from "../interfaces/course";
 
 describe("Course", () => {
   it("should create an instance", () => {

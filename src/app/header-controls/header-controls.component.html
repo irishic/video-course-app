@@ -1,10 +1,10 @@
 <button disabled>
   <fa-icon [icon]="faUser"></fa-icon>
   <span>
-    User login
+    {{user.firstName}}
   </span>
 </button>
-<button disabled>
+<button (click)="logout()">
   <fa-icon [icon]="faSignOutAlt"></fa-icon>
   <span>
     Log off

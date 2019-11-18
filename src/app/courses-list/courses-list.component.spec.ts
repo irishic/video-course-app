@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { Component, Input, ViewChild } from "@angular/core";
-import { CourseInterface } from "../domain/interfases/course";
+import { CourseInterface } from "../domain/interfaces/course";
 import fakeCourses from "./fake-courses-list";
 import { CoursesListComponent } from "./courses-list.component";
 import { OrderByPipe } from '../pipes/order-by.pipe';
