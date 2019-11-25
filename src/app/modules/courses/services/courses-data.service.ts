@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import fakeCourses from "./fake-courses-list";
-import { CourseInterface } from "../domain/interfaces/course";
-import { Course } from "../domain/models/course";
+import { CourseInterface } from "../../../domain/interfaces/course";
+import { Course } from "../../../domain/models/course";
 
 @Injectable({
   providedIn: "root"

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-import { CourseInterface } from "../domain/interfaces/course";
+import { CourseInterface } from "../../../../domain/interfaces/course";
 
 @Component({
   selector: "app-courses-list",
@@ -8,7 +8,6 @@ import { CourseInterface } from "../domain/interfaces/course";
 })
 export class CoursesListComponent implements OnInit {
   @Input() courses: CourseInterface[];
-  @Output() deleteCourse = new EventEmitter();
   @Output() loadMore = new EventEmitter();
 
   ngOnInit() {}

@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { FaIconStub } from "../testing/fa-icon-stub";
+import { FaIconStub } from "../../../../testing/fa-icon-stub";
 import { CoursesListItemComponent } from "./courses-list-item.component";
-import { MinutesConverterPipe } from "../pipes/minutes-converter.pipe";
-import { Course } from "../domain/models/course";
+import { MinutesConverterPipe } from "../../../../pipes/minutes-converter.pipe";
+import { Course } from "../../../../domain/models/course";
 import { PipeTransform } from "@angular/core";
 import { formatDate } from "@angular/common";
-import { HighlightElementDirective } from "../directives/highlight-element.directive";
+import { HighlightElementDirective } from "../../directives/highlight-element.directive";
 
 describe("CoursesListItemComponent", () => {
   let component: CoursesListItemComponent;
@@ -54,18 +54,4 @@ describe("CoursesListItemComponent", () => {
     expect(descr.textContent.trim()).toBe(component.course.description);
   });
 
-  it("emits onItemDelete action on Delete button click", () => {
-    const element: HTMLElement = fixture.nativeElement;
-    const deleteBtn = element.querySelector(
-      ".course-controls__delete"
-    ) as HTMLElement;
-    spyOn(component.onItemDelete, "emit");
-
-    deleteBtn.click();
-    fixture.detectChanges();
-
-    expect(component.onItemDelete.emit).toHaveBeenCalledWith(
-      component.course.id
-    );
-  });
 });

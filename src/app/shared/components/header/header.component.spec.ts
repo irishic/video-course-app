@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { HeaderComponent } from "./header.component";
-import { FaIconStub } from "../testing/fa-icon-stub";
+import { FaIconStub } from "../../../testing/fa-icon-stub";
 
 @Component({
   selector: "app-header-controls",

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { CourseInterface } from "../domain/interfaces/course";
+import { CourseInterface } from "../../../../domain/interfaces/course";
+import { CourseControllerService } from "../../services/course-controller.service";
 import {
   faPen,
   faTrash,
@@ -22,7 +23,9 @@ export class CoursesListItemComponent implements OnInit {
   statusColor: string = null;
   currentDateStamp: number = new Date().getTime();
 
-  @Output() onItemDelete = new EventEmitter();
+  constructor(private courseController: CourseControllerService) {}
+
+  // @Output() onItemDelete = new EventEmitter();
   @Input() course: CourseInterface;
 
   ngOnInit() {
@@ -36,5 +39,9 @@ export class CoursesListItemComponent implements OnInit {
     if (daysDifference < 0) {
       this.statusColor = "blue";
     }
+  }
+
+  onItemDelete(id) {
+    this.courseController.deleteCourse(id);
   }
 }

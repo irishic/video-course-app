@@ -1,4 +1,4 @@
-<div 
+<div
 	class="course-item-wrapper horisontal-alignment-block"
 	[ngClass]="{'top-rated': course.topRated}"
 	[appHighlightElement]="statusColor"
@@ -26,11 +26,10 @@
   </div>
   <div class="course-controls horisontal-alignment-block">
     <button disabled class="course-controls__edit horisontal-alignment-block">
-      <fa-icon [icon]="faPen"></fa-icon>
       Edit
     </button>
     <button
-      (click)="onItemDelete.emit(course.id)"
+      (click)="onItemDelete(course.id)"
       class="course-controls__delete horisontal-alignment-block"
     >
       <fa-icon [icon]="faTrash"></fa-icon>

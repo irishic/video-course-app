@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { Component, Input, ViewChild } from "@angular/core";
-import { CourseInterface } from "../domain/interfaces/course";
+import { CourseInterface } from "../../../../domain/interfaces/course";
 import fakeCourses from "./fake-courses-list";
 import { CoursesListComponent } from "./courses-list.component";
-import { OrderByPipe } from '../pipes/order-by.pipe';
+import { OrderByPipe } from '../../../../pipes/order-by.pipe';
 
 @Component({
   selector: "app-courses-list-item",
@@ -19,7 +19,6 @@ class StubAppCoursesListItemComponent {
     <app-courses-list
       [courses]="courses"
       (loadMore)="handleLoadMore()"
-      (deleteCourse)="handleCourseDelete($event)"
     >
     </app-courses-list>
   `
@@ -67,11 +66,5 @@ describe("CoursesListComponent", () => {
     loadMoreBtn.click();
 
     expect(component.handleLoadMore).toHaveBeenCalled();
-  });
-
-  it("passes delete action to the parent component with a given argument", () => {
-    spyOn(component, "handleCourseDelete");
-    component.child.deleteCourse.emit(1);
-    expect(component.handleCourseDelete).toHaveBeenCalledWith(1);
   });
 });
