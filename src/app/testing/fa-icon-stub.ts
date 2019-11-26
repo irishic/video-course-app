@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: "fa-icon",
+  selector: "fa-test-icon",
   template: ""
 })
 export class FaIconStub {

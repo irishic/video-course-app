@@ -17,10 +17,15 @@ export function getBoxShadowStyle(color) {
   selector: "[appHighlightElement]"
 })
 export class HighlightElementDirective implements OnInit {
-  @Input("appHighlightElement") public color: string;
+  @Input("appHighlightElement") public creationDate: Date;
+  color: string;
+  currentDateStamp: number = new Date().getTime();
+
   constructor(private element: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
+    this.specifyHighlightColor();
+
     this.renderer.setStyle(
       this.element.nativeElement,
       "border",
@@ -31,6 +36,19 @@ export class HighlightElementDirective implements OnInit {
       this.element.nativeElement,
       "box-shadow",
       getBoxShadowStyle(this.color)
-	);
+    );
+  }
+
+  specifyHighlightColor() {
+    const daysDifference = Math.round(
+      (this.currentDateStamp - this.creationDate.getTime()) /
+        (1000 * 60 * 60 * 24)
+    );
+    if (daysDifference > 0 && daysDifference < 14) {
+      this.color = "green";
+    }
+    if (daysDifference < 0) {
+      this.color = "blue";
+    }
   }
 }

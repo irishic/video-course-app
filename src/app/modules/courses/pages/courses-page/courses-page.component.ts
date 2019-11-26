@@ -10,7 +10,7 @@ import { CourseInterface } from "../../../../domain/interfaces/course";
 export class CoursesPageComponent implements OnInit {
   coursesList: CourseInterface[];
   constructor(
-    private dataService: CoursesDataService
+    public dataService: CoursesDataService
   ) {}
 
   searchByTitle(value: string) {

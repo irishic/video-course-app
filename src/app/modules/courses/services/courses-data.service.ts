@@ -11,14 +11,21 @@ export class CoursesDataService {
   constructor() {}
 
   initialCoursesLoad() {
-    this.courses = fakeCourses;
+    this.courses = fakeCourses.map(courseData => this.createCourse(courseData));
   }
 
   getCourses() {
     return this.courses;
   }
 
-  createCourse(courseData: CourseInterface) {
+  getFreeId() {
+    const ids = this.getCourses()
+      .map(course => course.id)
+      .sort();
+    return ids[ids.length - 1] + 1;
+  }
+
+  createCourse(courseData?: CourseInterface) {
     const {
       id,
       title,
@@ -27,7 +34,24 @@ export class CoursesDataService {
       description,
       topRated
     } = courseData;
-    return new Course(id, title, creationDate, duration, description, topRated);
+    return new Course(
+      id || this.getFreeId(),
+      title,
+      creationDate,
+      duration,
+      description,
+      topRated
+    );
+  }
+
+  createDefaultCourseData() {
+    return {
+      id: this.getFreeId(),
+      title: " ",
+      creationDate: new Date(),
+      duration: 0,
+      description: " "
+    };
   }
 
   getCourseById(id: string) {
@@ -38,7 +62,13 @@ export class CoursesDataService {
 
   updateCourse(courseId, fieldsToUpdate) {
     let course = this.getCourseById(courseId);
-    course = { ...course, ...fieldsToUpdate };
+
+    if (course) {
+      course = { ...course, ...fieldsToUpdate };
+    } else {
+      course = this.createCourse({ id: courseId, ...fieldsToUpdate });
+      this.courses = [].concat([...this.courses, course]);
+    }
     return course;
   }
 

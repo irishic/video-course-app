@@ -4,6 +4,6 @@
 ></app-course-search>
 <app-courses-list
   class="app-row"
-  [courses]="this.dataService.courses"
+  [courses]="dataService.courses"
   (loadMore)="loadMoreCourses()"
 ></app-courses-list>

@@ -1,4 +1,5 @@
 import { CourseInterface } from "../interfaces/course";
+import { UserInterface } from "../interfaces/user";
 
 export class Course implements CourseInterface {
   constructor(
@@ -7,6 +8,7 @@ export class Course implements CourseInterface {
     public creationDate: Date,
     public duration: number,
     public description: string,
-    public topRated?: boolean
+    public topRated?: boolean,
+    public author?: UserInterface
   ) {}
 }

@@ -1,3 +1,4 @@
+import { UserInterface } from "./user";
 export interface CourseInterface {
   id: string;
   title: string;
@@ -5,4 +6,5 @@ export interface CourseInterface {
   duration: number;
   description: string;
   topRated?: boolean;
+  author?: UserInterface;
 }

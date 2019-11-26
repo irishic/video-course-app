@@ -15,6 +15,7 @@ import { BreadcrumbsComponent } from "./shared/components/breadcrumbs/breadcrumb
 import { OverlayModule } from "@angular/cdk/overlay";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthService } from './services/auth.service';
+import { FaIconStub } from './testing/fa-icon-stub';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthService } from './services/auth.service';
     FooterComponent,
     LogoComponent,
     HeaderControlsComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    FaIconStub
   ],
   imports: [
     BrowserModule,

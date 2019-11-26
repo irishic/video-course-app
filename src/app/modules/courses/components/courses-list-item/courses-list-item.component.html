@@ -1,7 +1,7 @@
 <div
 	class="course-item-wrapper horisontal-alignment-block"
 	[ngClass]="{'top-rated': course.topRated}"
-	[appHighlightElement]="statusColor"
+	[appHighlightElement]="course.creationDate"
 >
   <div class="course-info">
     <div class="course-info__header horisontal-alignment-block">
@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="course-controls horisontal-alignment-block">
-    <button disabled class="course-controls__edit horisontal-alignment-block">
+    <button [routerLink]="[course.id]" class="course-controls__edit horisontal-alignment-block">
       Edit
     </button>
     <button

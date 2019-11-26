@@ -13,10 +13,12 @@ import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
 import { OrderByPipe } from "./pipes/order-by.pipe";
 import { CourseControllerService } from "./services/course-controller.service";
 import { CoursesDataService } from "./services/courses-data.service";
-import { MatDialogModule, MatButtonModule } from "@angular/material";
+import { MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule } from "@angular/material";
 
 import { ModalDialogComponent } from "../../shared/components/modal-dialog/modal-dialog.component";
 import { ConfirmComponent } from "../../shared/components/modal-dialog/confirm/confirm.component";
+import { CourseDetailsPageComponent } from "./pages/course-details-page/course-details-page.component";
+import { CourseFormComponent } from './components/course-form/course-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ConfirmComponent } from "../../shared/components/modal-dialog/confirm/c
     HighlightElementDirective,
     MinutesConverterPipe,
     ModalDialogComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    CourseDetailsPageComponent,
+    CourseFormComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +40,9 @@ import { ConfirmComponent } from "../../shared/components/modal-dialog/confirm/c
     FormsModule,
     FontAwesomeModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     {

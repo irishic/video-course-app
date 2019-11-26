@@ -1,0 +1,45 @@
+<div class="fields-wrapper">
+  <mat-form-field>
+    <mat-label>Title:</mat-label>
+    <input [(ngModel)]="course.title" matInput placeholder="Enter title" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description:</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="course.description"
+      placeholder="Enter description"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Date:</mat-label>
+    <input
+      matInput
+      [(ngModel)]="course.creationDate"
+      placeholder="Enter date"
+      type="date"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Duration:</mat-label>
+    <input
+      matInput
+      [(ngModel)]="course.duration"
+      placeholder="Enter duration"
+      type="number"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Authors:</mat-label>
+    <input matInput [(ngModel)]="course.author" placeholder="Add name" />
+  </mat-form-field>
+
+  <button mat-raised-button (click)="this.updateCourse()" color="primary">
+    Save
+  </button>
+  <button [routerLink]="['/courses']" mat-button>Cancel</button>
+</div>
