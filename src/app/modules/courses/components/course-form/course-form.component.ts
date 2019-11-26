@@ -12,7 +12,10 @@ export class CourseFormComponent implements OnInit {
   constructor(public dataService: CoursesDataService) {}
 
   updateCourse() {
-    this.dataService.updateCourse(this.course.id, { ...this.course });
+    this.dataService.updateCourse(this.course.id, {
+      ...this.course,
+      creationDate: new Date(this.course.creationDate)
+    });
   }
 
   ngOnInit() {}

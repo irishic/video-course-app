@@ -11,7 +11,7 @@ export class CoursesDataService {
   constructor() {}
 
   initialCoursesLoad() {
-    this.courses = fakeCourses.map(courseData => this.createCourse(courseData));
+    this.courses = fakeCourses.map(course => this.createCourse({...course}));
   }
 
   getCourses() {
@@ -67,8 +67,9 @@ export class CoursesDataService {
       course = { ...course, ...fieldsToUpdate };
     } else {
       course = this.createCourse({ id: courseId, ...fieldsToUpdate });
-      this.courses = [].concat([...this.courses, course]);
+      this.courses.push(course);
     }
+    this.courses = [...this.courses];
     return course;
   }
 

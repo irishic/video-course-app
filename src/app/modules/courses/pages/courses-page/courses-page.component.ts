@@ -9,9 +9,7 @@ import { CourseInterface } from "../../../../domain/interfaces/course";
 })
 export class CoursesPageComponent implements OnInit {
   coursesList: CourseInterface[];
-  constructor(
-    public dataService: CoursesDataService
-  ) {}
+  constructor(public dataService: CoursesDataService) {}
 
   searchByTitle(value: string) {
     this.coursesList = this.dataService.searchByName(value);
@@ -22,6 +20,8 @@ export class CoursesPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService.initialCoursesLoad();
+    if (!this.dataService.courses) {
+      this.dataService.initialCoursesLoad();
+    }
   }
 }
