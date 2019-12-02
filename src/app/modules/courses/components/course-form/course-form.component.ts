@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { CourseInterface } from "../../../../domain/interfaces/course";
 import { CoursesDataService } from "../../services/courses-data.service";
 
@@ -8,6 +8,7 @@ import { CoursesDataService } from "../../services/courses-data.service";
   styleUrls: ["./course-form.component.scss"]
 })
 export class CourseFormComponent implements OnInit {
+  @Output() afterUpdate = new EventEmitter();
   @Input() course: CourseInterface;
   constructor(public dataService: CoursesDataService) {}
 
@@ -16,6 +17,7 @@ export class CourseFormComponent implements OnInit {
       ...this.course,
       creationDate: new Date(this.course.creationDate)
     });
+    this.afterUpdate.emit();
   }
 
   ngOnInit() {}

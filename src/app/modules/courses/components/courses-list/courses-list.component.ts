@@ -9,6 +9,7 @@ import { CourseInterface } from "../../../../domain/interfaces/course";
 export class CoursesListComponent implements OnInit {
   @Input() courses: CourseInterface[];
   @Output() loadMore = new EventEmitter();
+  @Output() afterCourseDelete = new EventEmitter();
 
   ngOnInit() {}
 }

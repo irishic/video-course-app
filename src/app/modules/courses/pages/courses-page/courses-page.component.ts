@@ -9,10 +9,15 @@ import { CourseInterface } from "../../../../domain/interfaces/course";
 })
 export class CoursesPageComponent implements OnInit {
   coursesList: CourseInterface[];
+  searchValue: string;
   constructor(public dataService: CoursesDataService) {}
 
   searchByTitle(value: string) {
     this.coursesList = this.dataService.searchByName(value);
+  }
+
+  updateList() {
+    this.coursesList = this.dataService.getCourses();
   }
 
   loadMoreCourses() {
@@ -23,5 +28,6 @@ export class CoursesPageComponent implements OnInit {
     if (!this.dataService.courses) {
       this.dataService.initialCoursesLoad();
     }
+    this.coursesList = this.dataService.courses;
   }
 }

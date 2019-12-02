@@ -13,14 +13,17 @@ export class CourseControllerService {
   ) {}
 
   deleteCourse(id) {
-    this.dialog.open(ModalDialogComponent, {
-      data: {
-        type: "confirm",
-        text: "Do you really want to delete this course?",
-        okAction: () => {
-          this.dataService.removeCourseById(id);
+    return new Promise((resolve, reject) => {
+      this.dialog.open(ModalDialogComponent, {
+        data: {
+          type: "confirm",
+          text: "Do you really want to delete this course?",
+          okAction: () => {
+            this.dataService.removeCourseById(id);
+            resolve(true);
+          }
         }
-      }
+      });
     });
   }
 }

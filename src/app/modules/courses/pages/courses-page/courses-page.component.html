@@ -4,6 +4,7 @@
 ></app-course-search>
 <app-courses-list
   class="app-row"
-  [courses]="dataService.courses"
+  [courses]="coursesList"
+  (afterCourseDelete)="updateList()"
   (loadMore)="loadMoreCourses()"
 ></app-courses-list>

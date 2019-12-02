@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from "@angular/core";
 import { CourseInterface } from "../../../../domain/interfaces/course";
 import { CourseControllerService } from "../../services/course-controller.service";
 import {
@@ -24,13 +31,14 @@ export class CoursesListItemComponent implements OnInit {
 
   constructor(private courseController: CourseControllerService) {}
 
-  // @Output() onItemDelete = new EventEmitter();
+  @Output() afterCourseDelete = new EventEmitter();
   @Input() course: CourseInterface;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onItemDelete(id) {
-    this.courseController.deleteCourse(id);
+    this.courseController.deleteCourse(id).then(() => {
+      this.afterCourseDelete.emit();
+    });
   }
 }

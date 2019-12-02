@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CoursesDataService } from "../../services/courses-data.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CourseInterface } from "../../../../domain/interfaces/course";
 
 @Component({
@@ -12,8 +12,13 @@ export class CourseDetailsPageComponent implements OnInit {
   course: CourseInterface;
   constructor(
     private dataService: CoursesDataService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
+
+  goToCourses() {
+    this.router.navigate(["courses"]);
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(({ courseId }) => {

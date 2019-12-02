@@ -1,5 +1,8 @@
 <div class="wide-container">
-  <span>
-    Courses
-  </span>
+  <ul>
+    <li *ngFor="let crumb of breadcrumbs; last as current">
+      <a *ngIf="!current" [routerLink]="crumb.urlParams">{{crumb.label}}</a>
+      <span *ngIf="current">{{crumb.label}}</span>
+    </li>
+  </ul>
 </div>

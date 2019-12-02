@@ -1,0 +1,22 @@
+ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+    position: relative;
+
+    & > * {
+      text-transform: capitalize;
+    }
+
+    &:not(:first-child):before {
+      content: "/";
+      position: relative;
+      left: -7px;
+    }
+  }
+}

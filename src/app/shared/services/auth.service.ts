@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { User } from "../domain/models/user";
-import { UserInterface } from "../domain/interfaces/user";
-import { Router, CanActivate } from '@angular/router';
+import { User } from "../../domain/models/user";
+import { UserInterface } from "../../domain/interfaces/user";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: "root"
 })
-export class AuthService implements CanActivate {
+export class AuthService {
   currentUser: UserInterface;
 
   constructor(public router: Router) {}
@@ -17,14 +17,6 @@ export class AuthService implements CanActivate {
       firstName: "User FirstName",
       id: "1"
     };
-  }
-
-  canActivate() {
-    if (!this.isAuthenticated()) {
-      this.router.navigate(["login"]);
-      return Promise.resolve(false);
-    }
-    return Promise.resolve(true);
   }
 
   login({ email, password }) {

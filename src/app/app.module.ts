@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { CoursesModule } from './modules/courses/courses.module';
 import { LoginModule } from './modules/login/login.module';
+import { NotFoundModule } from './shared/pages/not-found/not-found.module';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -14,7 +15,7 @@ import { HeaderControlsComponent } from "./shared/components/header-controls/hea
 import { BreadcrumbsComponent } from "./shared/components/breadcrumbs/breadcrumbs.component";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AuthService } from './services/auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { FaIconStub } from './testing/fa-icon-stub';
 
 @NgModule({
@@ -29,12 +30,13 @@ import { FaIconStub } from './testing/fa-icon-stub';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FontAwesomeModule,
+    OverlayModule,
+    BrowserAnimationsModule,
     CoursesModule,
     LoginModule,
-    OverlayModule,
-    BrowserAnimationsModule
+    NotFoundModule,
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent],
   providers: [
