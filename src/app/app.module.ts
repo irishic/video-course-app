@@ -35,8 +35,8 @@ import { FaIconStub } from './testing/fa-icon-stub';
     BrowserAnimationsModule,
     CoursesModule,
     LoginModule,
-    NotFoundModule,
     AppRoutingModule,
+    NotFoundModule,
   ],
   bootstrap: [AppComponent],
   providers: [
