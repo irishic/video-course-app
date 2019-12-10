@@ -1,2 +1,9 @@
-<app-modal-confirm *ngIf="data.type === 'confirm'" [text]="data.text" (okAction)="data.okAction()">
+<app-modal-confirm
+  *ngIf="data.type === 'confirm'"
+  [text]="data.text"
+  (okAction)="data.okAction()"
+>
 </app-modal-confirm>
+
+<app-modal-info *ngIf="data.type === 'info'" [text]="data.text">
+</app-modal-info>

@@ -7,9 +7,10 @@ import { CourseInterface } from "../../../../domain/interfaces/course";
   styleUrls: ["./courses-list.component.scss"]
 })
 export class CoursesListComponent implements OnInit {
-  @Input() courses: CourseInterface[];
+  @Input() courses: CourseInterface[] = [];
   @Output() loadMore = new EventEmitter();
   @Output() afterCourseDelete = new EventEmitter();
+  @Input() lastCoursesIntervalLoaded: boolean;
 
   ngOnInit() {}
 }

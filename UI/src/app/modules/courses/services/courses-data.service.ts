@@ -1,28 +1,30 @@
 import { Injectable } from "@angular/core";
-import fakeCourses from "./fake-courses-list";
 import { CourseInterface } from "../../../domain/interfaces/course";
 import { Course } from "../../../domain/models/course";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { CoursesListHttpResponse } from "src/app/domain/interfaces/courses-list-http-response";
 
 @Injectable({
   providedIn: "root"
 })
 export class CoursesDataService {
   courses: CourseInterface[];
-  constructor() {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   initialCoursesLoad() {
-    this.courses = fakeCourses.map(course => this.createCourse({...course}));
+    return this.httpClient
+      .get<CoursesListHttpResponse>("http://localhost:3000/courses")
+      .toPromise()
+      .then(response => {
+        const { courses } = response;
+        this.courses = courses.map(course => this.createCourse(course));
+        return this.courses;
+      });
   }
 
   getCourses() {
     return this.courses;
-  }
-
-  getFreeId() {
-    const ids = this.getCourses()
-      .map(course => course.id)
-      .sort();
-    return ids[ids.length - 1] + 1;
   }
 
   createCourse(courseData?: CourseInterface) {
@@ -34,19 +36,11 @@ export class CoursesDataService {
       description,
       topRated
     } = courseData;
-    return new Course(
-      id || this.getFreeId(),
-      title,
-      creationDate,
-      duration,
-      description,
-      topRated
-    );
+    return new Course(id, title, creationDate, duration, description, topRated);
   }
 
   createDefaultCourseData() {
     return {
-      id: this.getFreeId(),
       title: " ",
       creationDate: new Date(),
       duration: 0,
@@ -63,36 +57,56 @@ export class CoursesDataService {
   updateCourse(courseId, fieldsToUpdate) {
     let course = this.getCourseById(courseId);
 
-    if (course) {
-      course = { ...course, ...fieldsToUpdate };
-    } else {
-      course = this.createCourse({ id: courseId, ...fieldsToUpdate });
-      this.courses.push(course);
-    }
-    this.courses = [...this.courses];
-    return course;
+    course = { ...course, ...fieldsToUpdate };
+
+    return courseId
+      ? this.httpClient
+          .put<CourseInterface>(
+            `http://localhost:3000/course/${courseId}`,
+            course
+          )
+          .toPromise()
+      : this.httpClient
+          .post<CourseInterface>(`http://localhost:3000/course/new`, course)
+          .toPromise();
   }
 
   removeCourseById(courseId) {
-    let course = this.getCourseById(courseId);
-    this.removeCourse(course);
-  }
-
-  removeCourse(courseToRemove) {
-    this.courses = this.courses.filter(course => course !== courseToRemove);
+    return this.httpClient
+      .get<string[]>(`http://localhost:3000/delete-course/${courseId}`)
+      .toPromise()
+      .then(coursesIds => {
+        this.courses = this.courses.filter(course =>
+          coursesIds.includes(course.id)
+        );
+      });
   }
 
   loadMoreCourses() {
-    this.courses = this.courses.concat(this.courses.slice(0, 4));
-    return this.courses;
+    return this.httpClient
+      .get<CoursesListHttpResponse>(
+        `http://localhost:3000/courses?start=${this.courses.length + 1}&count=3`
+      )
+      .toPromise()
+      .then(response => {
+        const { courses, isLast } = response;
+        this.courses = this.courses.concat(
+          courses.map(course => this.createCourse(course))
+        );
+        return isLast;
+      });
   }
 
   searchByName(value) {
     if (!value) {
-      return this.courses;
+      return this.initialCoursesLoad();
     }
-    return this.courses.filter(course =>
-      course.title.toLowerCase().includes(value.toLowerCase())
-    );
+    return this.httpClient
+      .get("http://localhost:3000/search-course", {
+        params: {
+          searchByTitle: value
+        }
+      })
+      .toPromise();
   }
 }

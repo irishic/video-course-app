@@ -6,16 +6,23 @@
   </div>
 
   <ul>
-    <li *ngFor="let course of courses | orderBy:'creationDate':'desc'">
-      <app-courses-list-item [course]="course" (afterCourseDelete)="afterCourseDelete.emit()"></app-courses-list-item>
-	</li>
+    <li *ngFor="let course of courses | orderBy: 'creationDate':'desc'">
+      <app-courses-list-item
+        [course]="course"
+        (afterCourseDelete)="afterCourseDelete.emit()"
+      ></app-courses-list-item>
+    </li>
   </ul>
 
   <div *ngIf="!courses.length" class="courses-list__empty-message">
-	  No data found. Feel free to create new course!
+    No data found. Feel free to create new course!
   </div>
 
-  <button (click)="loadMore.emit()" class="courses-list__load-more">
+  <button
+    *ngIf="!lastCoursesIntervalLoaded"
+    (click)="loadMore.emit()"
+    class="courses-list__load-more"
+  >
     Load more
   </button>
 </div>

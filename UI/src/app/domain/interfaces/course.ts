@@ -1,10 +1,6 @@
 import { UserInterface } from "./user";
-export interface CourseInterface {
+import { JustCreatedCourse } from "./just-created-course";
+
+export interface CourseInterface extends JustCreatedCourse {
   id: string;
-  title: string;
-  creationDate: Date;
-  duration: number;
-  description: string;
-  topRated?: boolean;
-  author?: UserInterface;
 }

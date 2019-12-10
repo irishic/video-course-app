@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CoursesRoutingModule } from "./courses-routing.module";
+import { HttpClientModule } from "@angular/common/http";
 
 import { CoursesPageComponent } from "./pages/courses-page/courses-page.component";
 import { CourseSearchComponent } from "./components/course-search/course-search.component";
@@ -13,12 +14,17 @@ import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
 import { OrderByPipe } from "./pipes/order-by.pipe";
 import { CourseControllerService } from "./services/course-controller.service";
 import { CoursesDataService } from "./services/courses-data.service";
-import { MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule } from "@angular/material";
+import {
+  MatDialogModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule
+} from "@angular/material";
 
 import { ModalDialogComponent } from "../../shared/components/modal-dialog/modal-dialog.component";
-import { ConfirmComponent } from "../../shared/components/modal-dialog/confirm/confirm.component";
 import { CourseDetailsPageComponent } from "./pages/course-details-page/course-details-page.component";
-import { CourseFormComponent } from './components/course-form/course-form.component';
+import { CourseFormComponent } from "./components/course-form/course-form.component";
+import { ConfirmComponent } from "src/app/shared/components/modal-dialog/confirm/confirm.component";
 
 @NgModule({
   declarations: [
@@ -29,8 +35,6 @@ import { CourseFormComponent } from './components/course-form/course-form.compon
     OrderByPipe,
     HighlightElementDirective,
     MinutesConverterPipe,
-    ModalDialogComponent,
-    ConfirmComponent,
     CourseDetailsPageComponent,
     CourseFormComponent
   ],
@@ -42,7 +46,8 @@ import { CourseFormComponent } from './components/course-form/course-form.compon
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [
     {
@@ -54,6 +59,6 @@ import { CourseFormComponent } from './components/course-form/course-form.compon
       useClass: CoursesDataService
     }
   ],
-  entryComponents: [ModalDialogComponent]
+  entryComponents: [ModalDialogComponent, ConfirmComponent]
 })
 export class CoursesModule {}

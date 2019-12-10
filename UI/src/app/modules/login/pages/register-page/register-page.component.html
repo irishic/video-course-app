@@ -1,9 +1,27 @@
 <mat-card>
   <mat-card-title>
-    Login
+    Registration
   </mat-card-title>
-  <form (submit)="loginUser(userEmail, userPassword)">
+  <form (submit)="signUp(userEmail, userPassword, fisrtName, lastName)">
     <mat-card-content>
+      <mat-form-field>
+        <mat-label>First Name:</mat-label>
+        <input
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="fisrtName"
+          matInput
+          placeholder="Enter first name"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Last Name:</mat-label>
+        <input
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="lastName"
+          matInput
+          placeholder="Enter last name"
+        />
+      </mat-form-field>
       <mat-form-field>
         <mat-label>E-mail:</mat-label>
         <input
@@ -29,12 +47,13 @@
       type="submit"
       mat-raised-button
       color="primary"
-      disabled="{{ !userEmail || !userPassword }}"
+      disabled="{{ !userEmail || !userPassword || !fisrtName || !lastName }}"
     >
-      Login
+      Register
     </button>
+
     <span class="suggestion-link">
-      Don't have an account yet? <a [routerLink]="['/register']">Sign Up!</a>
+      Already have an account? <a [routerLink]="['/login']">Sign In!</a>
     </span>
   </form>
 </mat-card>

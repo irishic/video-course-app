@@ -3,8 +3,10 @@
   class="app-row"
 ></app-course-search>
 <app-courses-list
+  *ngIf="coursesList"
   class="app-row"
   [courses]="coursesList"
   (afterCourseDelete)="updateList()"
   (loadMore)="loadMoreCourses()"
+  [lastCoursesIntervalLoaded]="lastCoursesIntervalLoaded"
 ></app-courses-list>

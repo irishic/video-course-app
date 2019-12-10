@@ -19,8 +19,7 @@ export class CourseControllerService {
           type: "confirm",
           text: "Do you really want to delete this course?",
           okAction: () => {
-            this.dataService.removeCourseById(id);
-            resolve(true);
+            this.dataService.removeCourseById(id).then(() => resolve(true));
           }
         }
       });

@@ -1,21 +1,19 @@
 import { Injectable } from "@angular/core";
-import {
-  CanActivate
-} from "@angular/router";
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { CanActivate } from "@angular/router";
+import { AuthService } from "../services/auth.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
-
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate() {
     if (!this.authService.isAuthenticated()) {
-      const loginPageUrlTree = this.router.parseUrl('/login');
-      return Promise.resolve(loginPageUrlTree);
+      this.authService.updateUserInfoWithCookies().then(user => {
+        return user ? true : this.router.parseUrl("/login");
+      });
     }
     return Promise.resolve(true);
   }

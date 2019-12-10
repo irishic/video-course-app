@@ -41,7 +41,7 @@ export class HighlightElementDirective implements OnInit {
 
   specifyHighlightColor() {
     const daysDifference = Math.round(
-      (this.currentDateStamp - this.creationDate.getTime()) /
+      (this.currentDateStamp - new Date(this.creationDate).getTime()) /
         (1000 * 60 * 60 * 24)
     );
     if (daysDifference > 0 && daysDifference < 14) {

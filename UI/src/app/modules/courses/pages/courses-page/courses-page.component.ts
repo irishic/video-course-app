@@ -10,10 +10,15 @@ import { CourseInterface } from "../../../../domain/interfaces/course";
 export class CoursesPageComponent implements OnInit {
   coursesList: CourseInterface[];
   searchValue: string;
+  lastCoursesIntervalLoaded: boolean;
   constructor(public dataService: CoursesDataService) {}
 
   searchByTitle(value: string) {
-    this.coursesList = this.dataService.searchByName(value);
+    this.dataService
+      .searchByName(value)
+      .then((filteredCourses: CourseInterface[]) => {
+        this.coursesList = filteredCourses;
+      });
   }
 
   updateList() {
@@ -21,13 +26,15 @@ export class CoursesPageComponent implements OnInit {
   }
 
   loadMoreCourses() {
-    this.coursesList = this.dataService.loadMoreCourses();
+    this.dataService.loadMoreCourses().then(isLast => {
+      this.lastCoursesIntervalLoaded = isLast;
+      this.coursesList = this.dataService.courses;
+    });
   }
 
   ngOnInit() {
-    if (!this.dataService.courses) {
-      this.dataService.initialCoursesLoad();
-    }
-    this.coursesList = this.dataService.courses;
+    this.dataService.initialCoursesLoad().then(() => {
+      this.coursesList = this.dataService.courses;
+    });
   }
 }
