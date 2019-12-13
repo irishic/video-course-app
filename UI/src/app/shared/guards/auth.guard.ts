@@ -7,14 +7,15 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate() {
     if (!this.authService.isAuthenticated()) {
-      this.authService.updateUserInfoWithCookies().then(user => {
-        return user ? true : this.router.parseUrl("/login");
+      return this.authService.updateUserInfoWithCookies().then(user => {
+        return !!user || this.router.parseUrl("/login");
       });
+    } else {
+      return Promise.resolve(true);
     }
-    return Promise.resolve(true);
   }
 }
