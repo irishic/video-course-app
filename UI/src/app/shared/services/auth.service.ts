@@ -3,10 +3,10 @@ import { User } from "../../domain/models/user";
 import { UserInterface } from "../../domain/interfaces/user";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import { MatDialog } from "@angular/material/dialog";
-import { ModalDialogComponent } from "../components/modal-dialog/modal-dialog.component";
+import { ModalDialogComponent } from "../../modules/modal-dialog/modal-dialog/modal-dialog.component";
 import { UserDataHttpResponse } from "src/app/domain/interfaces/user-data-http-response";
 import { CookieService } from "ngx-cookie-service";
+import { ModalDialogService } from "src/app/modules/modal-dialog/services/modal-dialog.service";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     public router: Router,
     private httpClient: HttpClient,
-    private dialog: MatDialog,
+    private dialogService: ModalDialogService,
     private cookieService: CookieService
   ) {}
 
@@ -66,11 +66,8 @@ export class AuthService {
         },
         error => {
           error.status === 404
-            ? this.dialog.open(ModalDialogComponent, {
-                data: {
-                  type: "info",
-                  text: "User doesnt exist yet. Consider Sign Up first :)"
-                }
+            ? this.dialogService.openInfoDialog({
+                text: "User doesnt exist yet. Consider Sign Up first :)"
               })
             : console.error(error);
         }
@@ -87,21 +84,15 @@ export class AuthService {
       })
       .subscribe(
         response => {
-          this.dialog.open(ModalDialogComponent, {
-            data: {
-              type: "info",
-              text: "Successful registration! Welcome :) \nNow you can login"
-            }
+          this.dialogService.openInfoDialog({
+            text: "Successful registration! Welcome :) \nNow you can login"
           });
         },
         error => {
           error.status === 400
-            ? this.dialog.open(ModalDialogComponent, {
-                data: {
-                  type: "info",
-                  text:
-                    "User already exists :) Try to log in or sign up with another login"
-                }
+            ? this.dialogService.openInfoDialog({
+                text:
+                  "User already exists :) Try to log in or sign up with another login"
               })
             : console.error(error);
         }

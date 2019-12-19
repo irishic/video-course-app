@@ -15,16 +15,13 @@ import { OrderByPipe } from "./pipes/order-by.pipe";
 import { CourseControllerService } from "./services/course-controller.service";
 import { CoursesDataService } from "./services/courses-data.service";
 import {
-  MatDialogModule,
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
 
-import { ModalDialogComponent } from "../../shared/components/modal-dialog/modal-dialog.component";
 import { CourseDetailsPageComponent } from "./pages/course-details-page/course-details-page.component";
 import { CourseFormComponent } from "./components/course-form/course-form.component";
-import { ConfirmComponent } from "src/app/shared/components/modal-dialog/confirm/confirm.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +41,6 @@ import { ConfirmComponent } from "src/app/shared/components/modal-dialog/confirm
     FormsModule,
     FontAwesomeModule,
     MatButtonModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule
@@ -58,7 +54,6 @@ import { ConfirmComponent } from "src/app/shared/components/modal-dialog/confirm
       provide: "CoursesDataService",
       useClass: CoursesDataService
     }
-  ],
-  entryComponents: [ModalDialogComponent, ConfirmComponent]
+  ]
 })
 export class CoursesModule {}

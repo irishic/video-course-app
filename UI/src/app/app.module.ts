@@ -4,14 +4,12 @@ import { NgModule } from "@angular/core";
 import { CoursesModule } from "./modules/courses/courses.module";
 import { LoginModule } from "./modules/login/login.module";
 import { NotFoundModule } from "./shared/pages/not-found/not-found.module";
+import { ModalDialogModule } from "./modules/modal-dialog/modal-dialog.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./shared/components/header/header.component";
 import { FooterComponent } from "./shared/components/footer/footer.component";
-import { ModalDialogComponent } from "./shared/components/modal-dialog/modal-dialog.component";
-import { ConfirmComponent } from "./shared/components/modal-dialog/confirm/confirm.component";
-import { InfoComponent } from "./shared/components/modal-dialog/info/info.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LogoComponent } from "./shared/components/logo/logo.component";
 import { HeaderControlsComponent } from "./shared/components/header-controls/header-controls.component";
@@ -35,9 +33,6 @@ import { BodyStructureInterceptor } from "./shared/http-interceptors/body-struct
     LogoComponent,
     HeaderControlsComponent,
     BreadcrumbsComponent,
-    ConfirmComponent,
-    InfoComponent,
-    ModalDialogComponent,
     FaIconStub
   ],
   imports: [
@@ -47,6 +42,7 @@ import { BodyStructureInterceptor } from "./shared/http-interceptors/body-struct
     BrowserAnimationsModule,
     CoursesModule,
     LoginModule,
+    ModalDialogModule,
     AppRoutingModule,
     NotFoundModule,
     MatButtonModule,
