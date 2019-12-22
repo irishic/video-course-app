@@ -47,7 +47,9 @@ app.get("/courses", function(req, res) {
   const theLastIndex = (Number(start) || 0) + (Number(count) || 3);
   const neededInterval = courses.slice(start, theLastIndex);
   const isLast = !courses[theLastIndex + 1];
-  res.status(200).send({ courses: neededInterval, isLast });
+  setTimeout(() => {
+    res.status(200).send({ courses: neededInterval, isLast });
+  }, 2000);
 });
 
 app.post("/register", function(req, res) {
@@ -73,7 +75,9 @@ app.post("/login", function(req, res, next) {
   user.checkPassword(password).then(isMatch => {
     if (isMatch) {
       const accessToken = jwt.sign(user.toJSON(), keyData.tokenKey);
-      res.status(200).send({ accessToken, user });
+      setTimeout(() => {
+        res.status(200).send({ accessToken, user });
+      }, 1000);
     } else res.status(400).send({ error: "wrong login/password" });
   });
 });
@@ -90,7 +94,10 @@ app.get("/user", function(req, res) {
 app.get("/search-course", function(req, res) {
   const { searchByTitle } = req.query;
   const suitableCourses = findCourseBy({ title: searchByTitle });
-  res.status(200).send(suitableCourses);
+  res.status(200).send({
+    courses: suitableCourses,
+    isLast: true
+  });
 });
 
 app.get("/delete-course/:id", function(req, res) {

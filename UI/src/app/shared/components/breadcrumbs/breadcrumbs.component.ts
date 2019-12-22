@@ -9,11 +9,12 @@ import { BreadcrumbsService } from "../../services/breadcrumbs.service";
   styleUrls: ["./breadcrumbs.component.scss"]
 })
 export class BreadcrumbsComponent implements OnInit {
+  breadcrumbs: BreadcrumbInterface[] = [];
+
   constructor(
     private router: Router,
     private breadcrumbsService: BreadcrumbsService
   ) {}
-  breadcrumbs: BreadcrumbInterface[] = [];
 
   ngOnInit() {
     this.router.events.subscribe(event => {

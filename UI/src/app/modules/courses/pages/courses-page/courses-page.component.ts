@@ -11,29 +11,26 @@ export class CoursesPageComponent implements OnInit {
   coursesList: CourseInterface[];
   searchValue: string;
   lastCoursesIntervalLoaded: boolean;
+
   constructor(public dataService: CoursesDataService) {}
 
-  searchByTitle(value: string) {
+  ngOnInit() {
     this.dataService
-      .searchByName(value)
-      .then((filteredCourses: CourseInterface[]) => {
-        this.coursesList = filteredCourses;
-      });
+      .initialCoursesLoad()
+      .subscribe(({ courses }) => (this.coursesList = courses));
   }
 
-  updateList() {
+  updateList(options) {
+    this.lastCoursesIntervalLoaded =
+      options && options.isLast !== undefined
+        ? options.isLast
+        : this.lastCoursesIntervalLoaded;
     this.coursesList = this.dataService.getCourses();
   }
 
   loadMoreCourses() {
-    this.dataService.loadMoreCourses().then(isLast => {
+    this.dataService.loadMoreCourses().subscribe(({ isLast }) => {
       this.lastCoursesIntervalLoaded = isLast;
-      this.coursesList = this.dataService.courses;
-    });
-  }
-
-  ngOnInit() {
-    this.dataService.initialCoursesLoad().then(() => {
       this.coursesList = this.dataService.courses;
     });
   }

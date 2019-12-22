@@ -10,7 +10,10 @@ import { CoursesDataService } from "../../services/courses-data.service";
 export class CourseFormComponent implements OnInit {
   @Output() afterUpdate = new EventEmitter();
   @Input() course: CourseInterface;
+
   constructor(public dataService: CoursesDataService) {}
+
+  ngOnInit() {}
 
   updateCourse() {
     this.dataService
@@ -20,6 +23,4 @@ export class CourseFormComponent implements OnInit {
       })
       .then(() => this.afterUpdate.emit());
   }
-
-  ngOnInit() {}
 }

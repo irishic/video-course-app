@@ -11,15 +11,12 @@ import { JustCreatedCourse } from "src/app/domain/interfaces/just-created-course
 })
 export class CourseDetailsPageComponent implements OnInit {
   course: CourseInterface | JustCreatedCourse;
+
   constructor(
     private dataService: CoursesDataService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
-
-  goToCourses() {
-    this.router.navigate(["courses"]);
-  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(({ courseId }) => {
@@ -29,5 +26,9 @@ export class CourseDetailsPageComponent implements OnInit {
       }
       this.course = this.dataService.getCourseById(courseId);
     });
+  }
+
+  goToCourses() {
+    this.router.navigate(["courses"]);
   }
 }

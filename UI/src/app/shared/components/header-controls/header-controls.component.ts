@@ -8,16 +8,17 @@ import { AuthService } from "../../services/auth.service";
   styleUrls: ["./header-controls.component.scss"]
 })
 export class HeaderControlsComponent implements OnInit {
-  user;
-  constructor(public authService: AuthService) {}
   faUser = faUser;
   faSignOutAlt = faSignOutAlt;
+  user;
 
-  logout() {
-    this.authService.logout();
-  }
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
     this.user = this.authService.getUserInfo();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

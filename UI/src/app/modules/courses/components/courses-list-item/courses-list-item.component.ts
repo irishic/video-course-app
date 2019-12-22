@@ -23,6 +23,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesListItemComponent implements OnInit {
+  @Output() afterCourseDelete = new EventEmitter();
+  @Input() course: CourseInterface;
   faPen = faPen;
   faTrash = faTrash;
   faClock = faClock;
@@ -30,9 +32,6 @@ export class CoursesListItemComponent implements OnInit {
   faStar = faStar;
 
   constructor(private courseController: CourseControllerService) {}
-
-  @Output() afterCourseDelete = new EventEmitter();
-  @Input() course: CourseInterface;
 
   ngOnInit() {}
 

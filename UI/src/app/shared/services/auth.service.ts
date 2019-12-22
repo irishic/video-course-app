@@ -1,12 +1,13 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { User } from "../../domain/models/user";
 import { UserInterface } from "../../domain/interfaces/user";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import { ModalDialogComponent } from "../../modules/modal-dialog/modal-dialog/modal-dialog.component";
 import { UserDataHttpResponse } from "src/app/domain/interfaces/user-data-http-response";
 import { CookieService } from "ngx-cookie-service";
 import { ModalDialogService } from "src/app/modules/modal-dialog/services/modal-dialog.service";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -27,14 +28,16 @@ export class AuthService {
     if (token) {
       return this.httpClient
         .get<UserInterface>(`http://localhost:3000/user?token=${token}`)
-        .toPromise()
-        .then(userInfo => {
-          this.currentUser = userInfo;
-          this.sessionToken = token;
-          return this.currentUser;
-        });
+        .pipe(
+          map(userInfo => {
+            this.currentUser = userInfo;
+            return this.currentUser;
+          })
+        );
     } else {
-      return Promise.resolve(this.currentUser);
+      return new Observable(observer => {
+        observer.next(this.currentUser);
+      });
     }
   }
 

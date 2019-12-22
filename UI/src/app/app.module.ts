@@ -24,6 +24,8 @@ import { CookieService } from "ngx-cookie-service";
 
 import { MatDialogModule, MatButtonModule } from "@angular/material";
 import { BodyStructureInterceptor } from "./shared/http-interceptors/body-structure";
+import { LoadingBlockComponent } from "./shared/components/loading-block/loading-block.component";
+import { LoadingIndicatorInterceptor } from "./shared/http-interceptors/loading-indicator";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { BodyStructureInterceptor } from "./shared/http-interceptors/body-struct
     LogoComponent,
     HeaderControlsComponent,
     BreadcrumbsComponent,
-    FaIconStub
+    FaIconStub,
+    LoadingBlockComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,11 @@ import { BodyStructureInterceptor } from "./shared/http-interceptors/body-struct
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BodyStructureInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingIndicatorInterceptor,
       multi: true
     },
     CookieService

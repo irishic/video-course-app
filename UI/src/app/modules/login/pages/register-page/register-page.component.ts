@@ -7,11 +7,13 @@ import { AuthService } from "src/app/shared/services/auth.service";
   styleUrls: ["./register-page.component.scss"]
 })
 export class RegisterPageComponent implements OnInit {
-  constructor(public authService: AuthService) {}
   userEmail: string;
   firstName: string;
   lastName: string;
   userPassword: string;
+
+  constructor(public authService: AuthService) {}
+
   ngOnInit() {}
 
   signUp(email, password, firstName, lastName) {

@@ -7,11 +7,12 @@ import { ActivatedRoute } from "@angular/router";
   providedIn: "root"
 })
 export class BreadcrumbsService {
+  breadcrumbs: BreadcrumbInterface[] = [];
+
   constructor(
     private coursesData: CoursesDataService,
     private activatedRoute: ActivatedRoute
   ) {}
-  breadcrumbs: BreadcrumbInterface[] = [];
 
   updateBreadcrumbsData(): BreadcrumbInterface[] {
     const breadcrumbRouteInfo = this.activatedRoute.firstChild.snapshot.data
@@ -43,7 +44,9 @@ export class BreadcrumbsService {
   }
 
   findSameBreadcrumb(breadcrumb) {
-    return this.breadcrumbs.find(b => b.urlParams[0] === breadcrumb.urlParams[0]);
+    return this.breadcrumbs.find(
+      b => b.urlParams[0] === breadcrumb.urlParams[0]
+    );
   }
 
   createBreadcrumb({ label, route }) {
@@ -60,7 +63,7 @@ export class BreadcrumbsService {
       const targetCourse = this.coursesData.getCourseById(
         this.activatedRoute.firstChild.snapshot.params.courseId
       );
-      return targetCourse ? targetCourse[dynamicLabel] : 'new';
+      return targetCourse ? targetCourse[dynamicLabel] : "new";
     }
   }
 }

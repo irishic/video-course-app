@@ -7,8 +7,9 @@ import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
   styleUrls: ["./logo.component.scss"]
 })
 export class LogoComponent implements OnInit {
-  constructor() {}
   faPlayCircle = faPlayCircle;
+
+  constructor() {}
 
   ngOnInit() {}
 }

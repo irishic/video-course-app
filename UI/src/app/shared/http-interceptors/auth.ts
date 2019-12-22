@@ -13,6 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private authService: AuthService,
     private cookieService: CookieService
   ) {}
+
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const token =
       this.authService.getToken() || this.cookieService.get("video-app-token");
