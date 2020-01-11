@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { BreadcrumbInterface } from "../../domain/interfaces/breadcrumb";
 import { CoursesDataService } from "../../modules/courses/services/courses-data.service";
 import { ActivatedRoute } from "@angular/router";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -14,33 +16,32 @@ export class BreadcrumbsService {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  updateBreadcrumbsData(): BreadcrumbInterface[] {
+  updateBreadcrumbsData(): Observable<BreadcrumbInterface[]> {
     const breadcrumbRouteInfo = this.activatedRoute.firstChild.snapshot.data
       .breadcrumb;
 
-    if (breadcrumbRouteInfo) {
-      const label =
-        breadcrumbRouteInfo.label ||
-        this.getDynamicBreadcrumbLabel(breadcrumbRouteInfo);
+    const route = this.activatedRoute.snapshot.firstChild.url
+      .map(urlInfo => urlInfo.path)
+      .join("/");
 
-      const route = this.activatedRoute.snapshot.firstChild.url
-        .map(urlInfo => urlInfo.path)
-        .join("/");
+    return this.getDynamicBreadcrumbLabel(breadcrumbRouteInfo).pipe(
+      map(label => {
+        if (label) {
+          const newBreadcrumb = this.createBreadcrumb({ label, route });
+          const sameExistingBreadcrumb = this.findSameBreadcrumb(newBreadcrumb);
 
-      const newBreadcrumb = this.createBreadcrumb({ label, route });
-      const sameExistingBreadcrumb = this.findSameBreadcrumb(newBreadcrumb);
-
-      if (sameExistingBreadcrumb) {
-        this.breadcrumbs = this.breadcrumbs.slice(
-          0,
-          this.breadcrumbs.indexOf(sameExistingBreadcrumb) + 1
-        );
-      } else {
-        this.breadcrumbs.push(newBreadcrumb);
-      }
-    }
-
-    return this.breadcrumbs;
+          if (sameExistingBreadcrumb) {
+            this.breadcrumbs = this.breadcrumbs.slice(
+              0,
+              this.breadcrumbs.indexOf(sameExistingBreadcrumb) + 1
+            );
+          } else {
+            this.breadcrumbs.push(newBreadcrumb);
+          }
+        }
+        return this.breadcrumbs;
+      })
+    );
   }
 
   findSameBreadcrumb(breadcrumb) {
@@ -57,13 +58,22 @@ export class BreadcrumbsService {
     return breadcrumb;
   }
 
-  getDynamicBreadcrumbLabel(breadcrumbRouteInfo): string {
-    const { dynamicLabel, dynamicKey } = breadcrumbRouteInfo;
-    if (dynamicKey === "courseId") {
-      const targetCourse = this.coursesData.getCourseById(
-        this.activatedRoute.firstChild.snapshot.params.courseId
+  getDynamicBreadcrumbLabel(breadcrumbRouteInfo): Observable<string> {
+    if (breadcrumbRouteInfo && breadcrumbRouteInfo.dynamicKey === "courseId") {
+      const { dynamicLabel, dynamicKey } = breadcrumbRouteInfo;
+      return this.coursesData
+        .getCourseById(this.activatedRoute.firstChild.snapshot.params.courseId)
+        .pipe(
+          map(targetCourse => {
+            return targetCourse ? targetCourse[dynamicLabel] : "new";
+          })
+        );
+    } else {
+      return new Observable(subscriber =>
+        subscriber.next(
+          (breadcrumbRouteInfo && breadcrumbRouteInfo.label) || null
+        )
       );
-      return targetCourse ? targetCourse[dynamicLabel] : "new";
     }
   }
 }

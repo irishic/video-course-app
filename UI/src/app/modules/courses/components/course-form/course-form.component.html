@@ -1,14 +1,14 @@
 <div class="fields-wrapper">
   <mat-form-field>
     <mat-label>Title:</mat-label>
-    <input [(ngModel)]="course.title" matInput placeholder="Enter title" />
+    <input [(ngModel)]="courseCopy.title" matInput placeholder="Enter title" />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Description:</mat-label>
     <textarea
       matInput
-      [(ngModel)]="course.description"
+      [(ngModel)]="courseCopy.description"
       placeholder="Enter description"
     ></textarea>
   </mat-form-field>
@@ -17,7 +17,7 @@
     <mat-label>Date:</mat-label>
     <input
       matInput
-      [(ngModel)]="course.creationDate"
+      [(ngModel)]="courseCopy.creationDate"
       placeholder="Enter date"
       type="date"
     />
@@ -27,7 +27,7 @@
     <mat-label>Duration:</mat-label>
     <input
       matInput
-      [(ngModel)]="course.duration"
+      [(ngModel)]="courseCopy.duration"
       placeholder="Enter duration"
       type="number"
     />
@@ -35,7 +35,7 @@
 
   <mat-form-field>
     <mat-label>Authors:</mat-label>
-    <input matInput [(ngModel)]="course.author" placeholder="Add name" />
+    <input matInput [(ngModel)]="courseCopy.author" placeholder="Add name" />
   </mat-form-field>
 
   <button mat-raised-button (click)="updateCourse()" color="primary">

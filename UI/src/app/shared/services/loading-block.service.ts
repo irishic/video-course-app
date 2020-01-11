@@ -13,7 +13,7 @@ export class LoadingBlockService {
   }
 
   registerLoadingCompleted(request, response) {
-    this.currentProcessings = response.body
+    this.currentProcessings = response.type !== 0
       ? this.currentProcessings.filter(p => p !== request)
       : this.currentProcessings;
   }

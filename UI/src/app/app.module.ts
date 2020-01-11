@@ -26,6 +26,13 @@ import { MatDialogModule, MatButtonModule } from "@angular/material";
 import { BodyStructureInterceptor } from "./shared/http-interceptors/body-structure";
 import { LoadingBlockComponent } from "./shared/components/loading-block/loading-block.component";
 import { LoadingIndicatorInterceptor } from "./shared/http-interceptors/loading-indicator";
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import * as fromAuth from './reducers/auth/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './effects/auth.effects';
 
 @NgModule({
   declarations: [
@@ -49,7 +56,17 @@ import { LoadingIndicatorInterceptor } from "./shared/http-interceptors/loading-
     AppRoutingModule,
     NotFoundModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      }
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer),
+    EffectsModule.forRoot([AuthEffects])
   ],
   bootstrap: [AppComponent],
   providers: [

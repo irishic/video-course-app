@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy
 } from "@angular/core";
 import { CourseInterface } from "../../../../domain/interfaces/course";
-import { CourseControllerService } from "../../services/course-controller.service";
+import { ModalDialogService } from "src/app/modules/modal-dialog/services/modal-dialog.service";
 import {
   faPen,
   faTrash,
@@ -15,6 +15,7 @@ import {
   faCalendarAlt,
   faStar
 } from "@fortawesome/free-solid-svg-icons";
+import { CoursesDataService } from "../../services/courses-data.service";
 
 @Component({
   selector: "app-courses-list-item",
@@ -23,7 +24,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesListItemComponent implements OnInit {
-  @Output() afterCourseDelete = new EventEmitter();
   @Input() course: CourseInterface;
   faPen = faPen;
   faTrash = faTrash;
@@ -31,13 +31,19 @@ export class CoursesListItemComponent implements OnInit {
   faCalendar = faCalendarAlt;
   faStar = faStar;
 
-  constructor(private courseController: CourseControllerService) {}
+  constructor(
+    private dialogService: ModalDialogService,
+    private dataService: CoursesDataService
+  ) {}
 
   ngOnInit() {}
 
   onItemDelete(id) {
-    this.courseController.deleteCourse(id).then(() => {
-      this.afterCourseDelete.emit();
+    this.dialogService.openConfirmDialog({
+      text: "Do you really want to delete this course?",
+      action: () => {
+        return this.dataService.removeCourseById(id);
+      }
     });
   }
 }

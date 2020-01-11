@@ -2,20 +2,29 @@ import { Injectable } from "@angular/core";
 import { CanActivate } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
+import { Store, select } from "@ngrx/store";
+import { UserInterface } from "src/app/domain/interfaces/user";
+import { selectStoreUser } from "src/app/reducers/index";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store<{ user: UserInterface }>
+  ) {}
 
   canActivate() {
-    if (!this.authService.isAuthenticated()) {
-      return this.authService
-        .updateUserInfoWithCookies()
-        .pipe(map(user => !!user || this.router.parseUrl("/login")));
-    }
-    return Promise.resolve(true);
+    return this.store.pipe(
+      select(selectStoreUser),
+      map(user => {
+        if (!user) {
+          this.router.navigateByUrl("/login");
+        }
+        return !!user;
+      })
+    );
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { CourseInterface } from "../../../../domain/interfaces/course";
 import { CoursesDataService } from "../../services/courses-data.service";
+import { tap } from "rxjs/operators";
+import { Course } from "src/app/domain/models/course";
 
 @Component({
   selector: "app-course-form",
@@ -10,17 +12,22 @@ import { CoursesDataService } from "../../services/courses-data.service";
 export class CourseFormComponent implements OnInit {
   @Output() afterUpdate = new EventEmitter();
   @Input() course: CourseInterface;
+  courseCopy;
 
   constructor(public dataService: CoursesDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.courseCopy = this.dataService.createCourse({ ...this.course });
+  }
 
   updateCourse() {
     this.dataService
-      .updateCourse(this.course.id, {
-        ...this.course,
+      .updateCourse(this.course, {
+        ...this.courseCopy,
         creationDate: new Date(this.course.creationDate)
       })
-      .then(() => this.afterUpdate.emit());
+      .subscribe(() => {
+        this.afterUpdate.emit();
+      });
   }
 }

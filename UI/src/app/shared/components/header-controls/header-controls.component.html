@@ -1,12 +1,14 @@
-<button disabled>
-  <fa-icon [icon]="faUser"></fa-icon>
-  <span>
-    {{user.firstName}}
-  </span>
-</button>
-<button (click)="logout()">
-  <fa-icon [icon]="faSignOutAlt"></fa-icon>
-  <span>
-    Log off
-  </span>
-</button>
+<div *ngIf="user" class="wrapper">
+  <button disabled>
+    <fa-icon [icon]="faUser"></fa-icon>
+    <span>
+      {{ user.firstName }}
+    </span>
+  </button>
+  <button (click)="logout()">
+    <fa-icon [icon]="faSignOutAlt"></fa-icon>
+    <span>
+      Log off
+    </span>
+  </button>
+</div>

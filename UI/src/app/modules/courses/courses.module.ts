@@ -12,7 +12,6 @@ import { CoursesListItemComponent } from "./components/courses-list-item/courses
 import { HighlightElementDirective } from "./directives/highlight-element.directive";
 import { MinutesConverterPipe } from "./pipes/minutes-converter.pipe";
 import { OrderByPipe } from "./pipes/order-by.pipe";
-import { CourseControllerService } from "./services/course-controller.service";
 import { CoursesDataService } from "./services/courses-data.service";
 import {
   MatButtonModule,
@@ -22,6 +21,10 @@ import {
 
 import { CourseDetailsPageComponent } from "./pages/course-details-page/course-details-page.component";
 import { CourseFormComponent } from "./components/course-form/course-form.component";
+import { StoreModule } from '@ngrx/store';
+import * as fromCourses from '../../reducers/courses/courses.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CoursesEffects } from '../../effects/courses.effects';
 
 @NgModule({
   declarations: [
@@ -43,13 +46,11 @@ import { CourseFormComponent } from "./components/course-form/course-form.compon
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature(fromCourses.coursesFeatureKey, fromCourses.reducer),
+    EffectsModule.forFeature([CoursesEffects])
   ],
   providers: [
-    {
-      provide: "CourseControllerService",
-      useClass: CourseControllerService
-    },
     {
       provide: "CoursesDataService",
       useClass: CoursesDataService

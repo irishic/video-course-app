@@ -9,7 +9,6 @@
     <li *ngFor="let course of courses | orderBy: 'creationDate':'desc'">
       <app-courses-list-item
         [course]="course"
-        (afterCourseDelete)="afterCourseDelete.emit()"
       ></app-courses-list-item>
     </li>
   </ul>

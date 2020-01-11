@@ -8,6 +8,9 @@ import {
 import { fromEvent } from "rxjs";
 import { map, filter, debounceTime } from "rxjs/operators";
 import { CoursesDataService } from "../../services/courses-data.service";
+import { Store } from "@ngrx/store";
+import { CourseInterface } from "src/app/domain/interfaces/course";
+import { filterByTitle } from "src/app/actions/courses.actions";
 
 @Component({
   selector: "app-course-search",
@@ -19,7 +22,7 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
   searchValue: string;
   inputObserver = null;
 
-  constructor(private dataService: CoursesDataService) {}
+  constructor(private store: Store<{ courses: CourseInterface[] }>) {}
 
   ngOnInit() {
     const input = document.querySelector("#searchInput") as HTMLInputElement;
@@ -39,8 +42,9 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
   }
 
   searchByTitle(value: string) {
-    this.dataService.searchByName(value).subscribe(({ courses, isLast }) => {
-      this.listFiltered.emit({ courses, isLast });
-    });
+    this.store.dispatch(filterByTitle({ title: value }));
+    // this.dataService.searchByName(value).subscribe(({ courses, isLast }) => {
+    //   this.listFiltered.emit({ courses, isLast });
+    // });
   }
 }

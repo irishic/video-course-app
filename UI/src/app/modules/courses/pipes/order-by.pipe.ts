@@ -6,11 +6,11 @@ import { CourseInterface } from "../../../domain/interfaces/course";
 })
 export class OrderByPipe implements PipeTransform {
   transform(
-    courses: CourseInterface[],
+    array: [],
     key: string,
     ordering: string = "asc"
   ): any {
-    return courses.sort((firstCourse, secondCourse) => {
+    return array.slice().sort((firstCourse, secondCourse) => {
       const firstCourseValue = firstCourse[key];
       const secondCourseValue = secondCourse[key];
       if (ordering === "asc") {

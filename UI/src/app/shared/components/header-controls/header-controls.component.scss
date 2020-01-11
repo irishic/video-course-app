@@ -1,13 +1,17 @@
-button{
-	background: transparent;
-	font-size: 14px;
-	border: none;
-	color: #fff;
-	display: flex;
-	align-items: center;
+.wrapper {
+  display: flex;
 }
 
-fa-icon{
-	margin-right: 4px;
-	font-size: 18px;
+button {
+  background: transparent;
+  font-size: 14px;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+fa-icon {
+  margin-right: 4px;
+  font-size: 18px;
 }

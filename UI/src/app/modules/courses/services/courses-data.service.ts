@@ -3,8 +3,13 @@ import { CourseInterface } from "../../../domain/interfaces/course";
 import { Course } from "../../../domain/models/course";
 import { HttpClient } from "@angular/common/http";
 import { CoursesListHttpResponse } from "src/app/domain/interfaces/courses-list-http-response";
-import { LoadingBlockService } from "src/app/shared/services/loading-block.service";
-import { map, tap } from "rxjs/operators";
+import { Store, select } from "@ngrx/store";
+import { getCourseById } from "src/app/reducers";
+import {
+  updateCourse,
+  updateCoursesByIds
+} from "src/app/actions/courses.actions";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -13,24 +18,13 @@ export class CoursesDataService {
   courses: CourseInterface[];
   constructor(
     private httpClient: HttpClient,
-    private loadingService: LoadingBlockService
+    private store: Store<{ courses: CourseInterface[] }>
   ) {}
 
   initialCoursesLoad() {
-    return this.httpClient
-      .get<CoursesListHttpResponse>("http://localhost:3000/courses")
-      .pipe(
-        map(({ courses, isLast }) => {
-          return {
-            courses: courses.map(course => this.createCourse(course)),
-            isLast
-          };
-        }),
-        tap(({ courses, isLast }) => {
-          this.courses = courses;
-          return { courses, isLast };
-        })
-      );
+    return this.httpClient.get<CoursesListHttpResponse>(
+      "http://localhost:3000/courses"
+    );
   }
 
   getCourses() {
@@ -49,6 +43,10 @@ export class CoursesDataService {
     return new Course(id, title, creationDate, duration, description, topRated);
   }
 
+  createCourses(coursesData: CourseInterface[]) {
+    return coursesData.map(course => this.createCourse(course));
+  }
+
   createDefaultCourseData() {
     return {
       title: " ",
@@ -59,74 +57,56 @@ export class CoursesDataService {
   }
 
   getCourseById(id: string) {
-    return this.courses.find(course => {
-      return course.id === id;
-    });
+    return this.store.pipe(select(getCourseById, { id }));
   }
 
-  updateCourse(courseId, fieldsToUpdate) {
-    let course = this.getCourseById(courseId);
+  updateCourse(course, fieldsToUpdate) {
+    const courseCopy: CourseInterface = { ...course, ...fieldsToUpdate };
 
-    course = { ...course, ...fieldsToUpdate };
+    const requestObservable = courseCopy.id
+      ? this.httpClient.put<CourseInterface>(
+          `http://localhost:3000/course/${courseCopy.id}`,
+          courseCopy
+        )
+      : this.httpClient.post<CourseInterface>(
+          `http://localhost:3000/course/new`,
+          courseCopy
+        );
 
-    return courseId
-      ? this.httpClient
-          .put<CourseInterface>(
-            `http://localhost:3000/course/${courseId}`,
-            course
-          )
-          .toPromise()
-      : this.httpClient
-          .post<CourseInterface>(`http://localhost:3000/course/new`, course)
-          .toPromise();
+    return requestObservable.pipe(
+      map(course => {
+        return this.store.dispatch(updateCourse({ course }));
+      })
+    );
   }
 
   removeCourseById(courseId) {
     return this.httpClient
       .get<string[]>(`http://localhost:3000/delete-course/${courseId}`)
-      .toPromise()
-      .then(coursesIds => {
-        this.courses = this.courses.filter(course =>
-          coursesIds.includes(course.id)
+      .subscribe(existingCoursesIds => {
+        this.store.dispatch(
+          updateCoursesByIds({ coursesIds: existingCoursesIds })
         );
       });
   }
 
-  loadMoreCourses() {
-    return this.httpClient
-      .get<CoursesListHttpResponse>(
-        `http://localhost:3000/courses?start=${this.courses.length + 1}&count=3`
-      )
-      .pipe(
-        map(response => {
-          const { courses, isLast } = response;
-          return { courses, isLast };
-        }),
-        tap(({ courses, isLast }) => {
-          this.courses = this.courses.concat(
-            courses.map(course => this.createCourse(course))
-          );
-          return isLast;
-        })
-      );
+  loadMoreCourses(startNum: number) {
+    return this.httpClient.get<CoursesListHttpResponse>(
+      `http://localhost:3000/courses?start=${startNum + 1}&count=3`
+    );
   }
 
   searchByName(value) {
     if (!value) {
       return this.initialCoursesLoad();
     }
-    return this.httpClient
-      .get<CoursesListHttpResponse>("http://localhost:3000/search-course", {
+    return this.httpClient.get<CoursesListHttpResponse>(
+      "http://localhost:3000/search-course",
+      {
         params: {
           searchByTitle: value
         }
-      })
-      .pipe(
-        map(response => response.courses),
-        map(courses => {
-          this.courses = courses.map(course => this.createCourse(course));
-          return { courses: this.courses, isLast: true };
-        })
-      );
+      }
+    );
   }
 }
