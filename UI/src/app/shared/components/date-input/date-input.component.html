@@ -1,0 +1,10 @@
+<mat-form-field [formGroup]="dateForm">
+  <mat-label *ngIf="showLabel">Date:</mat-label>
+  <input
+    matInput
+    class="form-control"
+    type="date"
+    formControlName="creationDate"
+  />
+
+</mat-form-field>

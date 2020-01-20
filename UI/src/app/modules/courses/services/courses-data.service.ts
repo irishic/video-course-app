@@ -31,6 +31,18 @@ export class CoursesDataService {
     return this.courses;
   }
 
+  formatDate(date) {
+    const dateObj = new Date(date);
+    const month = this.leadingZero(dateObj.getMonth() + 1);
+    const day = this.leadingZero(dateObj.getDate());
+    return `${dateObj.getFullYear()}-${month}-${day}`;
+  }
+
+  leadingZero(value) {
+    let copy = String(value);
+    return copy.length === 1 ? `0${copy}` : copy;
+  }
+
   createCourse(courseData?: CourseInterface) {
     const {
       id,
@@ -38,9 +50,19 @@ export class CoursesDataService {
       creationDate,
       duration,
       description,
-      topRated
+      topRated,
+      authors
     } = courseData;
-    return new Course(id, title, creationDate, duration, description, topRated);
+
+    return new Course(
+      id,
+      title,
+      this.formatDate(creationDate),
+      duration,
+      description,
+      topRated,
+      authors
+    );
   }
 
   createCourses(coursesData: CourseInterface[]) {
@@ -94,6 +116,12 @@ export class CoursesDataService {
     return this.httpClient.get<CoursesListHttpResponse>(
       `http://localhost:3000/courses?start=${startNum + 1}&count=3`
     );
+  }
+
+  loadAuthorsNames(typed: string) {
+    return this.httpClient
+      .get<string[]>(`http://localhost:3000/authors?typed=${typed}`)
+      .toPromise();
   }
 
   searchByName(value) {

@@ -7,6 +7,7 @@ const User = require("./user");
 const keyData = require("./key");
 const usersTemporaryStorage = [];
 let courses = require("./fake-courses");
+const authors = require("./fake-authors");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -125,6 +126,18 @@ app.put("/course/:id", function(req, res) {
     res.status(200).send(courseData);
   } else {
     res.status(404).send({ error: "not found" });
+  }
+});
+
+app.get("/authors", function(req, res) {
+  const { typed } = req.query;
+  if (!typed) {
+    res.status(200).send(authors);
+  } else {
+    const options = authors.filter(authorName =>
+      RegExp(`^${typed}`).test(authorName)
+    );
+    res.status(200).send(options);
   }
 });
 

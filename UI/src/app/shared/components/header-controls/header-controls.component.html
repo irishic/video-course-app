@@ -1,8 +1,11 @@
 <div *ngIf="user" class="wrapper">
-  <button disabled>
+  <button disabled class="user-data">
     <fa-icon [icon]="faUser"></fa-icon>
     <span>
       {{ user.firstName }}
+    </span>
+    <span>
+      {{ user.lastName }}
     </span>
   </button>
   <button (click)="logout()">

@@ -11,6 +11,7 @@ import { CoursesDataService } from "../../services/courses-data.service";
 import { Store } from "@ngrx/store";
 import { CourseInterface } from "src/app/domain/interfaces/course";
 import { filterByTitle } from "src/app/actions/courses.actions";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-course-search",
@@ -21,8 +22,13 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
   @Output() listFiltered = new EventEmitter();
   searchValue: string;
   inputObserver = null;
+  form: FormGroup;
 
-  constructor(private store: Store<{ courses: CourseInterface[] }>) {}
+  constructor(private store: Store<{ courses: CourseInterface[] }>) {
+    this.form = new FormGroup({
+      searchValue: new FormControl("")
+    });
+  }
 
   ngOnInit() {
     const input = document.querySelector("#searchInput") as HTMLInputElement;
@@ -33,7 +39,7 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
         debounceTime(200)
       )
       .subscribe(() => {
-        this.searchByTitle(this.searchValue);
+        this.searchByTitle(this.form.get("searchValue").value);
       });
   }
 
@@ -43,8 +49,5 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
 
   searchByTitle(value: string) {
     this.store.dispatch(filterByTitle({ title: value }));
-    // this.dataService.searchByName(value).subscribe(({ courses, isLast }) => {
-    //   this.listFiltered.emit({ courses, isLast });
-    // });
   }
 }

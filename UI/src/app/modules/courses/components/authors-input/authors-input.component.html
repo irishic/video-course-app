@@ -1,0 +1,21 @@
+<mat-form-field [formGroup]="authorsForm">
+  <mat-label>Authors:</mat-label>
+  <div
+    class="author-block"
+    formArrayName="authors"
+    *ngFor="let author of authorsForm.get('authors').controls; let i = index"
+  >
+    <div [formGroupName]="i" class="author-block-data">
+      <input matInput placeholder="Add name" formControlName="name" (input)="updateOptions($event.target.value)"/>
+      <button (click)="removeAuthor.emit(i)" type="button">X</button>
+      <ul *ngIf="suggestedAuthors.length && optionsOpen" class="suggestions-list">
+        <li *ngFor="let name of suggestedAuthors">
+          <button type="button" (click)="setValue([name, i])">
+            {{name}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <button (click)="addAuthor.emit()" type="button">Add author</button>
+</mat-form-field>

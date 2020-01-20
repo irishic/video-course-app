@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CoursesRoutingModule } from "./courses-routing.module";
 import { HttpClientModule } from "@angular/common/http";
@@ -25,6 +25,10 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCourses from '../../reducers/courses/courses.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from '../../effects/courses.effects';
+import { DateInputComponent } from 'src/app/shared/components/date-input/date-input.component';
+import { NumberInputComponent } from 'src/app/shared/components/number-input/number-input.component';
+import { AuthorsInputComponent } from './components/authors-input/authors-input.component';
+import { AuthorNameInputComponent } from './components/author-name-input/author-name-input.component';
 
 @NgModule({
   declarations: [
@@ -36,17 +40,21 @@ import { CoursesEffects } from '../../effects/courses.effects';
     HighlightElementDirective,
     MinutesConverterPipe,
     CourseDetailsPageComponent,
-    CourseFormComponent
+    CourseFormComponent,
+    DateInputComponent,
+    NumberInputComponent,
+    AuthorsInputComponent,
+    AuthorNameInputComponent
   ],
   imports: [
     CommonModule,
     CoursesRoutingModule,
-    FormsModule,
     FontAwesomeModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(fromCourses.coursesFeatureKey, fromCourses.reducer),
     EffectsModule.forFeature([CoursesEffects])
   ],

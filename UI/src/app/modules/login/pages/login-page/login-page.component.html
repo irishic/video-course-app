@@ -2,13 +2,12 @@
   <mat-card-title>
     Login
   </mat-card-title>
-  <form (submit)="loginUser(userEmail, userPassword)">
+  <form [formGroup]="form" (ngSubmit)="loginUser()">
     <mat-card-content>
       <mat-form-field>
         <mat-label>E-mail:</mat-label>
         <input
-          [ngModelOptions]="{ standalone: true }"
-          [(ngModel)]="userEmail"
+          formControlName="userEmail"
           matInput
           placeholder="Enter e-mail"
         />
@@ -17,8 +16,7 @@
       <mat-form-field>
         <mat-label>Password:</mat-label>
         <input
-          [ngModelOptions]="{ standalone: true }"
-          [(ngModel)]="userPassword"
+          formControlName="userPassword"
           matInput
           type="password"
           placeholder="Enter password"
@@ -30,7 +28,7 @@
       type="submit"
       mat-raised-button
       color="primary"
-      disabled="{{ !userEmail || !userPassword }}"
+      [disabled]="!form.valid"
     >
       Login
     </button>

@@ -1,0 +1,57 @@
+mat-form-field {
+  width: 100%;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.author-block-data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  background: #fff;
+  border-radius: 3px;
+  margin-right: 5px;
+  position: relative;
+
+  input {
+    padding: 5px;
+  }
+}
+button {
+  padding: 2px 5px;
+  font-size: 12px;
+  color: #fff;
+  border: none;
+  background: #ddacaf;
+}
+
+.suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-radius: 3px;
+  width: 100%;
+  z-index: 9;
+
+  li {
+    background: #fff;
+    padding: 5px;
+    width: calc(100% - 10px);
+
+    button {
+      border: none;
+      width: 100%;
+      background: transparent;
+      color: black;
+      text-align: left;
+      padding: 0;
+      cursor: pointer;
+    }
+  }
+}

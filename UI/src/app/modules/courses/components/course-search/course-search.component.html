@@ -1,8 +1,5 @@
 <div class="course-search wide-container">
-  <input
-    id="searchInput"
-    type="text"
-    value="{searchValue}"
-    [(ngModel)]="searchValue"
-  />
+  <form [formGroup]="form">
+    <input id="searchInput" type="text" formControlName="searchValue" />
+  </form>
 </div>

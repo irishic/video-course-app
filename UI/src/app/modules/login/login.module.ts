@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { LoginRoutingModule } from "./login-routing.module";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import {
   MatButtonModule,
   MatCardModule,
@@ -19,7 +19,7 @@ import { RegisterPageComponent } from "./pages/register-page/register-page.compo
   imports: [
     CommonModule,
     LoginRoutingModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
