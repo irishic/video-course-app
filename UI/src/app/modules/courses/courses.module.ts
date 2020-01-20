@@ -28,7 +28,6 @@ import { CoursesEffects } from '../../effects/courses.effects';
 import { DateInputComponent } from 'src/app/shared/components/date-input/date-input.component';
 import { NumberInputComponent } from 'src/app/shared/components/number-input/number-input.component';
 import { AuthorsInputComponent } from './components/authors-input/authors-input.component';
-import { AuthorNameInputComponent } from './components/author-name-input/author-name-input.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { AuthorNameInputComponent } from './components/author-name-input/author-
     CourseFormComponent,
     DateInputComponent,
     NumberInputComponent,
-    AuthorsInputComponent,
-    AuthorNameInputComponent
+    AuthorsInputComponent
   ],
   imports: [
     CommonModule,
