@@ -39,7 +39,7 @@ export class CourseFormComponent implements OnInit {
         [Validators.required, forbiddenFutureDates()]
       ],
       duration: [duration, [Validators.required, onlyNumbersAllowed()]],
-      authors: this.fb.array(authors.map(a => this.initAuthorObj(a)))
+      authors: this.fb.array((authors || ['']).map(a => this.initAuthorObj(a)))
     });
   }
 

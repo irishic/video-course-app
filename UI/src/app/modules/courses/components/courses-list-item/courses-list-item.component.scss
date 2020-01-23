@@ -26,6 +26,22 @@
       }
     }
   }
+
+  &__authors{
+    margin-top: 10px;
+    font-size: .75em;
+    opacity: .6;
+
+    span{
+      position: relative;
+      padding-right: 5px;
+    }
+    span:not(.isLast):after{
+      content: ',';
+      position: absolute;
+      right: 5px;
+    }
+  }
 }
 
 button {
